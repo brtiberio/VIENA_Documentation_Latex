@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                      %
+%     File: Thesis_FrontCover.tex                                      %
+%     Tex Master: Thesis.tex                                           %
+%                                                                      %
+%     Author: Andre C. Marta                                           %
+%     Last modified :  2 Jul 2015                                      %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle {empty}
+
+% IST Logo - Signature A
+% parameters: bb=llx lly urx ury (bounding box), width=h_length, height=v_length, angle=angle, scale=factor, clip=true/false, draft=true/false. 
+\includegraphics[viewport=9.5cm 11cm 0cm 0cm,scale=0.29]{figures/IST_A_CMYK_POS.pdf}
+
+
+
+\begin{center}
+%
+% Figure (Image or plot)
+\vspace{2.5cm}
+% height = 50 mm
+\newcommand*{\ClipSep}{0.3cm}%
+\begin{tikzpicture}
+\node [inner sep=0pt] at (0,0) {\includegraphics[height=50mm]{figures/cover.jpg}};
+\draw [white, rounded corners=\ClipSep, line width=\ClipSep] 
+(current bounding box.north west) -- 
+(current bounding box.north east) --
+(current bounding box.south east) --
+(current bounding box.south west) -- cycle
+;
+\end{tikzpicture}
+
+% Title, author and degree
+\vspace{1.0cm}
+{\FontLb VIENA} \\ {\FontMn Veículo Inteligente Elétrico de Navegação Autónoma}\\ % <<<<< EDIT TITLE
+\vspace{0.2cm}
+{\FontMn Documentation Guide} \\
+\vfill
+{\FontMb Current authors:}\\
+\begin{tabular}{cl}
+	\textbf{Bruno Tibério:} & bruno.tiberio@tecnico.ulisboa.pt \hfill         \\
+	% add more	
+\end{tabular} 
+\\
+\vfill
+{\FontMb Revision: 1}\\
+\vspace{0.5cm}
+{\FontMb \today} \\
+%
+\end{center}
