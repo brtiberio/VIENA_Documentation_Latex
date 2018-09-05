@@ -1,0 +1,62 @@
+\chapter{Main Server configuration}
+\label{chapter:server}
+
+In order to control the current features already developed and used in the car it is used a \href{https://www.raspberrypi.org/products/}{Raspberry PI} (currently version 3 model B). The \acrlong{Rpi}, from now on denoted as \acrshort{Rpi}, is a \gls{SBC} affordable and low power, widely used among community and developed by Raspberry Pi Foundation.
+
+\section{Requirements}
+For using the \gls{SBC} it is required the following hardware:
+\begin{itemize}
+	\item \textbf{Raspberry Pi \gls{SBC}} Recommended version at least 3 since it has a built in wifi.
+	\item \textbf{MicroSD card} Recommended with 8Gb capacity at least.
+	\item \textbf{Power Supply} Recommended 2.5 Amps . While developing, it is used as the main power for the \gls{SBC}.
+	\item \textbf{Host computer (any OS)} with internet and ability to read MicroSD cards.
+	\item \textbf{Ethernet cable} for connecting to router/switch for internet access. It can also be used an crossover cable connecting directly to PC if it is able to share internet connection.
+\end{itemize}
+
+\subsection{Preparation}
+This preparation will focus on providing instructions to a minimal headless setup. For this reason, the recommended OS image version is the Raspbian Lite.
+
+For this step it is recommended to be used the \href{https://etcher.io/}{Etcher} software for burning the OS image into microSD card. It is assumed the user is familiar with ssh capable software, for example \href{https://www.putty.org/}{Putty}.
+The next steps are mainly based in the documentation guide provided by \cite{raspberry_install_guide}.
+
+\begin{enumerate}
+	\item Download the OS image, Raspbian Lite version in \href{https://www.raspberrypi.org/downloads/raspbian/}{here}
+	\item Connect the MicroSD to host computer.
+	\item Open Etcher and:
+	\begin{enumerate}
+		\item Select OS image or zip file that have been downloaded.
+		\item Select the SD card you wish to write your image to.
+		\item Review your selections and click 'Flash!' to begin writing data to the SD card.
+		\item after successful write, continue to next step.
+	\end{enumerate}
+	\item From microSD card, open the boot partition.
+	\item Create a new blank file with name "ssh" without extension. This will allow to enable the ssh daemon at first boot time.
+	\item Remove card from host computer and insert on raspberry PI.
+	\item Plug in the ethernet cable and connect the \gls{Rpi} to the same  local network as host computer.
+	\item Plug in the power supply to \gls{Rpi}.
+\end{enumerate}
+
+If everything went as expected, the \gls{Rpi} will start to boot and prepare the first setup. It will be seen led light blinking indicating activity. After a few minutes, it should be possible to access it remotely via ssh
+
+\subsection{Remote access}
+The next step is to find the ip address of the \gls{Rpi}. For example, in linux terminal type \colorbox{gray!10}{arp -a}. In figure \ref{arp_example} is seen an output example. In red stroke is shown the \gls{MAC} address of a \gls{Rpi}. Every \gls{MAC} is unique and the first three bytes are fixed in every \gls{Rpi} wich correspond to organizationally unique identifier \cite{mac_wiki} associated to Raspberry Pi Foundation, B8:27:EB \cite{wireshark_mac}.
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/arp_example}
+	\caption{arp -a command example output}
+	\label{arp_example}
+\end{figure}
+
+
+
+
+\section{Troubleshooting}
+
+\begin{description}[style=nextline]
+	\item [The command \colorbox{gray!10}{arp -a} do not show my \gls{Rpi}] In that case, try use the \colorbox{gray!10}{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!
+	
+\end{description}
+
+
+

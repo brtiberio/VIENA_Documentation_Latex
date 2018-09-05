@@ -72,37 +72,6 @@
 %%\addto\captionsportuguese{\renewcommand{\bibname}{Refer\^{e}ncias}} %
 %%%Bibliografia
 %%\addto\captionsportuguese{\renewcommand{\appendixname}{Anexo}} % Apendice
-%
-%
-% ----------------------------------------------------------------------
-% Define cover fields in both english and portuguese.
-% ----------------------------------------------------------------------
-%
-\newcommand{\coverThesis}{@undefined} % new LaTeX variable name
-\newcommand{\coverSupervisors}{@undefined} % new LaTeX variable name
-\newcommand{\coverExaminationCommittee}{@undefined} % new LaTeX variable name
-\newcommand{\coverChairperson}{@undefined} % new LaTeX variable name
-\newcommand{\coverSupervisor}{@undefined} % new LaTeX variable name
-\newcommand{\coverMemberCommittee}{@undefined} % new LaTeX variable name
-% > English
-\addto\captionsenglish{\renewcommand{\coverThesis}{Thesis to obtain the Master
-of Science Degree in}}
-\addto\captionsenglish{\renewcommand{\coverSupervisors}{Supervisor(s)}}
-\addto\captionsenglish{\renewcommand{\coverExaminationCommittee}{Examination
-Committee}}
-\addto\captionsenglish{\renewcommand{\coverChairperson}{Chairperson}}
-\addto\captionsenglish{\renewcommand{\coverSupervisor}{Supervisor}}
-\addto\captionsenglish{\renewcommand{\coverMemberCommittee}{Member of the
-Committee}}
-%% > Portuguese
-%\addto\captionsportuguese{\renewcommand{\coverThesis}{Disserta\c{c}\~{a}o para
-%obten\c{c}\~{a}o do Grau de Mestre em}}
-%\addto\captionsportuguese{\renewcommand{\coverSupervisors}{Orientador(es)}}
-%\addto\captionsportuguese{\renewcommand{\coverExaminationCommittee}{J\'{u}ri}}
-%\addto\captionsportuguese{\renewcommand{\coverChairperson}{Presidente}}
-%\addto\captionsportuguese{\renewcommand{\coverSupervisor}{Orientador}}
-%\addto\captionsportuguese{\renewcommand{\coverMemberCommittee}{Vogal}}
-
 
 % ----------------------------------------------------------------------
 % Define default and cover page fonts.
@@ -319,7 +288,7 @@ Committee}}
 %-----------------------------------------------------------------------
 % A general purpose hierarchical index generator.
 %
-% It needed for glossaries package
+% It is needed for glossaries package
 \usepackage{makeidx}
 \makeindex
 
@@ -355,10 +324,10 @@ Committee}}
 %	          bookmarks=true,         % create PDF bookmarks
 	          bookmarksopen=false,    % don't expand bookmarks
 	          bookmarksnumbered=true, % number bookmarks
-	          pdftitle={Thesis},
+	          pdftitle={VIENA Documentation},
             pdfauthor={Bruno Tibério},
-            pdfsubject={Thesis Title},
-            pdfkeywords={Thesis Keywords},
+            %pdfsubject={Thesis Title},
+            %pdfkeywords={Thesis Keywords},
             pdfstartview=FitV,
             pdfdisplaydoctitle=true}
 
@@ -502,34 +471,34 @@ Committee}}
 %\newcommand{\ud}{\mathrm{d}}                % total derivative
 \newcommand{\degree}{\ensuremath{^\circ\,}} % degrees
 
-% Abbreviations
-
-%\newcommand{\eqnref}[1]{(\ref{#1})}
-%\newcommand{\class}[1]{\texttt{#1}}
-%\newcommand{\package}[1]{\texttt{#1}}
-%\newcommand{\file}[1]{\texttt{#1}}
-%\newcommand{\BibTeX}{\textsc{Bib}\TeX}
-
-% Typefaces ( example: {\bf Bold text here} )
-
-% > pre-defined
-%   \bf % bold face
-%   \it % italic
-%   \tt % typewriter
-%
-% > newly defined
-%\newcommand{\tr}[1]{{\ensuremath{\textrm{#1}}}}   % text roman
-%\newcommand{\tb}[1]{{\ensuremath{\textbf{#1}}}}   % text bold face
-%\newcommand{\ti}[1]{{\ensuremath{\textit{#1}}}}   % text italic
-%\newcommand{\mc}[1]{{\ensuremath{\mathcal{#1}}}}  % math calygraphy
-%\newcommand{\mco}[1]{{\ensuremath{\mathcalold{#1}}}}% math old calygraphy
-%\newcommand{\mr}[1]{{\ensuremath{\mathrm{#1}}}}   % math roman
-%\newcommand{\mb}[1]{{\ensuremath{\mathbf{#1}}}}   % math bold face
-%\newcommand{\bs}[1]{\ensuremath{\boldsymbol{#1}}} % math symbol
-%\def\bm#1{\mathchoice                             % math bold
-%  {\mbox{\boldmath$\displaystyle#1$}}%
-%  {\mbox{\boldmath$#1$}}%
-%  {\mbox{\boldmath$\scriptstyle#1$}}%
-%  {\mbox{\boldmath$\scriptscriptstyle#1$}}}
-%\newcommand{\boldcal}[1]{{\ensuremath{\boldsymbol{\mathcal{#1}}}}}% math bold
-%%calygraphy
+%---------------------------------------------------------------------------
+% package to include source code
+%---------------------------------------------------------------------------
+\usepackage{listings}
+\lstset{ 
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\normalsize,        % the size of the fonts that are used for the code
+	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                 % sets automatic line breaking
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{greenmat},    % comment style
+	deletekeywords={...},            % if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	frame=single,	                   % adds a frame around the code
+	keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{bluemat},       % keyword style
+	language=Octave,                 % the language of the code
+	morekeywords={*,...},            % if you want to add more keywords to the set
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,				   % how far the line-numbers are from the code
+	stepnumber=1,
+	numberstyle=\tiny\color{gray},   % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,          % underline spaces within strings only
+	showtabs=false,                  % show tabs within strings adding particular underscores
+	stringstyle=\color{red},     % string literal style
+	tabsize=2,	                   % sets default tabsize to 2 spaces
+	title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}

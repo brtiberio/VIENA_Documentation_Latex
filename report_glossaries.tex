@@ -2,11 +2,7 @@
 %
 % Using file to store all glossaries entries
 
-\newglossaryentry{bodyA}{
-	type=nomencl,
-	name={\ensuremath{{}^bA}},
-	description={Physical quantity defined in superscript frame (in this case $b$, body frame)}
-}
+
 \newglossaryentry{rotMatrix}{
 	type=nomencl,
 	name={\ensuremath{{}^b_wR}},
@@ -15,121 +11,44 @@
 		(in this case $b$, body frame)}
 }
 
-\newglossaryentry{rotMatrix2D}{
-	type=nomencl,
-	name={\ensuremath{{}^b_wR_{2D}}},
-	description={A rotation matrix reduced to only two dimensions}
-}
 
-\newglossaryentry{quat}{
-	type=nomencl,
-	name={\ensuremath{q}},
-	description={Quaternion}
-}
-
-\newglossaryentry{quat_norm}{
-	type=nomencl,
-	name={\ensuremath{\hat{q}}},
-	description={Normalized quaternion}
-}
-
-\newglossaryentry{quat_conj}{
-	type=nomencl,
-	name={\ensuremath{q^*}},
-	description={Quaternion conjugate}
-}
-
-\newglossaryentry{quat_product}{
-	type=nomencl,
-	name={\ensuremath{\otimes}},
-	description={Quaternion product operation generally described as Hamilton product}
-}
-
-\newglossaryentry{skew_symetric}{
-	type=nomencl,
-	name={\ensuremath{\Omega_\times}},
-	description={Skew symmetric matrix of angular velocities used to represent cross products as matrix multiplications}}
-
-\newglossaryentry{polyfit}{
-	type=nomencl,
-	name={polyfit},
-	description={Polynomial fit function available in Matlab\textsuperscript{\textregistered}}
-}
-
-\newglossaryentry{intrinsic}{
-	type=nomencl,
-	name={intrinsic},
-	description={Intrinsic rotation means that rotation is applied about the an axis of moving frame 
-	}
-}
-
-\newglossaryentry{pure quaternion}{
-	type=nomencl,
-	name={pure quaternion},
-	description={Pure quaternion is a quaternion with real part equal to zero}
-}
-\newglossaryentry{a priori}{
-	type=nomencl,
-	name={\textit{a priori}},
-	description={Latin expression denoting, in this case, an estimate before atually having information about it and before possible correction}
-}
-
-\newglossaryentry{a posteriori}{
-	type=nomencl,
-	name={\textit{a posteriori}},
-	description={Latin expression denoting, in this case, an estimate after performing correction using recent information}
-}
-
-\newglossaryentry{lever arm}{
-	type=nomencl,
-	name={lever arm},
-	description={A distance correction for the point of application of a physical quantity or to describe the same quantity in a specific location}
-}
-
-\newglossaryentry{sigmaP}{
-	type=nomencl,
-	name={$\sigma_P$},
-	description={Standart deviation associated to a position reading provided by a GNSS receiver}
-}
-\newglossaryentry{sigmaV}{
-	type=nomencl,
-	name={$\sigma_V$},
-	description={Standart deviation associated to a velocity reading provided by a GNSS receiver}
-}
 %-----------------------------------------------------------------------
 % Acronym definition command:
 %\newacronym{label}{short}{long}
 % Example:
 % \newacronym{svm}{SVM}{Suport Vector Machine}
 %-----------------------------------------------------------------------
-\newacronym{MARG}{MARG}{Magnetic Angular Rate and Gravity}
-\newacronym{ADAS}{ADAS}{Advanced Driver-Assistance Systems}
-\newacronym{EKF}{EKF}{Extended Kalman Filter}
+%\newacronym{MARG}{MARG}{Magnetic Angular Rate and Gravity}
+%\newacronym{ADAS}{ADAS}{Advanced Driver-Assistance Systems}
+%\newacronym{EKF}{EKF}{Extended Kalman Filter}
 \newacronym{IST}{IST}{Instituto Superior Técnico}
-\newacronym{GNSS}{GNSS}{Global Navigation Satellite System}
-\newacronym{GPS}{GPS}{Global Position System}
-\newacronym{IMU}{IMU}{Inertial Measurement Unity}
-\newacronym{ECEF}{ECEF}{Earth Centered, Earth Fixed}
-\newacronym{ENU}{ENU}{East North Up}
-\newacronym{9DOF}{9DOF}{Nine Degrees of Freedom}
-\newacronym{MCU}{MCU}{Microcontroller Unit}
-\newacronym{DC}{DC}{Direct Current}
-\newacronym{UART}{UART}{Universal Asynchronous Receiver/Transmitter}
-\newacronym{MEMS}{MEMS}{Microelectromechanical systems}
-\newacronym{SPI}{SPI}{Serial Peripheral Interface bus}
-\newacronym{I2C}{I\textsuperscript{2}C}{Inter-Integrated Circuit bus}
-\newacronym{LSB}{LSB}{Least signigicant bit}
-\newacronym{EEPROM}{EEPROM}{Electrically-Erasable Programmable Read-Only Memory}
-\newacronym{WGS84}{WGS84}{World Geodetic System}
-\newacronym{AHRS}{AHRS}{Attitude and Heading Reference System}
-\newacronym{CEP}{CEP}{Circular error probable}
-\newacronym{DOF}{DOF}{Degrees of Freedom}
-\newacronym{SoC}{SoC}{System on Chip}
-\newacronym{DIY}{DIY}{Do It Yourself}
-\newacronym{A-GNSS}{A-GNSS}{Assisted GNSS}
-\newacronym{INS}{INS}{Inertial Navigation System}
-\newacronym{ADC}{ADC}{Analog to Digital Converter}
-\newacronym{ZVU}{ZVU}{Zero Velocity Update}
-\newacronym{rms}{rms}{root mean square}
-\newacronym{FS}{FS}{Full Scale}
+%\newacronym{GNSS}{GNSS}{Global Navigation Satellite System}
+%\newacronym{GPS}{GPS}{Global Position System}
+%\newacronym{IMU}{IMU}{Inertial Measurement Unity}
+%\newacronym{ECEF}{ECEF}{Earth Centered, Earth Fixed}
+%\newacronym{ENU}{ENU}{East North Up}
+%\newacronym{9DOF}{9DOF}{Nine Degrees of Freedom}
+%\newacronym{MCU}{MCU}{Microcontroller Unit}
+%\newacronym{DC}{DC}{Direct Current}
+%\newacronym{UART}{UART}{Universal Asynchronous Receiver/Transmitter}
+%\newacronym{MEMS}{MEMS}{Microelectromechanical systems}
+%\newacronym{SPI}{SPI}{Serial Peripheral Interface bus}
+%\newacronym{I2C}{I\textsuperscript{2}C}{Inter-Integrated Circuit bus}
+%\newacronym{LSB}{LSB}{Least signigicant bit}
+%\newacronym{EEPROM}{EEPROM}{Electrically-Erasable Programmable Read-Only Memory}
+%\newacronym{WGS84}{WGS84}{World Geodetic System}
+%\newacronym{AHRS}{AHRS}{Attitude and Heading Reference System}
+%\newacronym{CEP}{CEP}{Circular error probable}
+%\newacronym{DOF}{DOF}{Degrees of Freedom}
+%\newacronym{SoC}{SoC}{System on Chip}
+%\newacronym{DIY}{DIY}{Do It Yourself}
+%\newacronym{A-GNSS}{A-GNSS}{Assisted GNSS}
+%\newacronym{INS}{INS}{Inertial Navigation System}
+%\newacronym{ADC}{ADC}{Analog to Digital Converter}
+%\newacronym{ZVU}{ZVU}{Zero Velocity Update}
+%\newacronym{rms}{rms}{root mean square}
+%\newacronym{FS}{FS}{Full Scale}
 \newacronym{VIENA}{VIENA}{Veiculo Inteligente Elétrico de Navegação Autónoma}
+\newacronym{SBC}{SBC}{Single Board Computer}
+\newacronym{Rpi}{Rpi}{Raspberry PI}
+\newacronym{MAC}{MAC}{Media Access Control}

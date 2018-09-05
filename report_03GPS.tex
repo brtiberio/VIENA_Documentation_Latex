@@ -1,0 +1,50 @@
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\chapter{NovatelOEM4 GPS Library}\label{welcome-to-novateloem4-gps-librarys-documentation}
+
+\begin{description}
+\item[Date]
+24 Jul 2018
+\item[Version]
+0.4
+\item[Author]
+Bruno Tibério
+\item[Contact]
+\href{mailto:bruno.tiberio@tecnico.ulisboa.pt}{\nolinkurl{bruno.tiberio@tecnico.ulisboa.pt}}
+\end{description}
+
+This module contains a few functions to interact with Novatel OEM4 GPS
+devices. Currently only the most important functions and definitions are
+configured, but the intention is to make it as much complete as
+possible.
+
+A simple example can be run by executing the main function wich creates
+a Gps class object and execute the following commands on gps receiver:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{begin:} on default port or given port by argv{[}1{]}.
+\item
+  \textbf{sendUnlogall}
+\item
+  \textbf{setCom(baud=115200):} changes baudrate to 115200bps
+\item
+  \textbf{askLog(trigger=2,period=0.1):} ask for log \emph{bestxyz} with
+  trigger {ONTIME} and period {0.1}
+\item
+  wait for 10 seconds
+\item
+  \textbf{shutdown:} safely disconnects from gps receiver
+\end{itemize}
+
+\textbf{Example:}
+
+\begin{verbatim}
+$python NovatelOEM4.py
+\end{verbatim}
+
+Contents:
+
+gps
