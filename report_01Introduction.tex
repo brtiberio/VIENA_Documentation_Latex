@@ -22,6 +22,8 @@ other \gls{IST} projects by the simple fact that they have been replaced by impr
 
 This guide aims to be auxiliary documentation and future memory source as part of the \gls{IST} project named \gls{VIENA} and as well as final report for fellowship BL43/2018. 
 
+Although all the instructions are given based on Linux operating system, they should be similar to any other OS and the majority of code developed is made in Python, intending to be as much cross-platform as possible.
+
 
 
 
@@ -41,7 +43,32 @@ Miscellaneous contain other parts that do not fit particularly inside any of tho
 \section{Contributions}
 \label{section:contributions}
 
+During the fellowship BL43/2018, it was made the main contributions:
+\begin{enumerate}
+	\item Development of 3d printed parts for allowing the control of steering wheel without disassembling or violating the integrity of steering shaft column
+	\item Development of a library in Python based on CANBus to enable interconnection between software and hardware to control the steering wheel.
+	\item Development of prototype circuit to add CAN communication for main computer
+	\item Development and design of \acrshort{PCB} for future CAN communication to replace the protoboard for main computer
+	\item Identification of the function that relates the steering wheel position with angle of the front wheel in a bicycle model of the car.
+	\item Mounting of available sensors (two  \acrshort{GNSS} unities and one \acrshort{IMU} \acrshort{9DOF})
+	\item Calibration of the inertial sensor.
+	\item Updated code related with inertial sensor.
+	\item Updated code related with \acrshort{GNSS} unities.
+\end{enumerate}
+
+Although not initially planned, but because the change of hardware and/or adversities found during the fellowship, following additional work was also contributed:
+\begin{enumerate}
+	\item Study of interconnection of the main battery pack
+	\item Study of software used for management of main battery pack
+	\item Study of hardware necessary for management of main battery pack
+	\item Study and initial software developement  for invertor received from \acrshort{FST} (in progress)
+	\item Creation of an headless structure and an AP station based on \gls{Rpi} to communicate with vehicle
+	\item Initial development of an mqtt based design to control the vehicle and/of check status. 
+\end{enumerate}
+
 Main code contributions are available under Github repository in \url{https://github.com/brtiberio/VIENA} and will be kept up to date as soon as possible.
+The developed 3D pieces are also present in that repository and the companion drawings are shown in this guide also.
+The developed PCB schematics and board layouts are also presented in this guide.
 
 
 
