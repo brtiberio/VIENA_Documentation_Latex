@@ -1,0 +1,13 @@
+\chapter{Code Guidelines}
+In this chapter is described the main guidelines used for coding and documentation as well as relevant suggestions.
+Since the majority of code is developed in Python, the guidelines are provided for that language. However similar suggestion may apply for the other languages cases.
+
+The first suggestion is the code version control system, Git. It has a lot integrations with majority of IDE's and have lot of free tools to manage it. Documentation and guides to become familiar with can be followed at \href{https://try.github.io/}{try.github.io}
+ 
+
+Since Python core team is dropping support for python 2.7.x in 2020 \cite{python_end_of_life} and some of important package developers are also dropping support for it \cite{numpy_end_of_life}, the chosen \textbf{version is the 3.X.}
+
+Typically, every Linux distribution uses python to run critical routines. Perturbing the main ecosystem of python packages should be avoided, at least during development phase. Raspbian is no exception, so it is suggested to use virtual environments. It is used to create a isolated local installation in the directory you are working. Since version 3.5 the official recommended tool for creating virtual enviroments is the venv.
+
+
+

@@ -6,6 +6,7 @@ In order to control the current features already developed and used in the car i
 \section{Requirements}
 For using the \gls{SBC} it is required the following hardware:
 \begin{itemize}
+	\tightlist
 	\item \textbf{Raspberry Pi \gls{SBC}} Recommended version at least 3 since it has a built in wifi.
 	\item \textbf{MicroSD card} Recommended with 8Gb capacity at least.
 	\item \textbf{Power Supply} Recommended 2.5 Amps . While developing, it is used as the main power for the \gls{SBC}.
@@ -20,6 +21,7 @@ For this step it is recommended to be used the \href{https://etcher.io/}{Etcher}
 The next steps are mainly based in the documentation guide provided by \cite{raspberry_install_guide}.
 
 \begin{enumerate}
+	\tightlist
 	\item Download the OS image, Raspbian Lite version in \href{https://www.raspberrypi.org/downloads/raspbian/}{here}
 	\item Connect the MicroSD to host computer.
 	\item Open Etcher and:
@@ -71,15 +73,51 @@ Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be per
 %-------------------------------------------------------------------------------
 \subsection{Initial update and configuration}
 If the user as been granted with permission to login, the next steps are used to perform a few tweaks.
+To do that user must use the command \colorbox{gray!15}{sudo raspi-config}. Example output is seen in figure \ref{fig:raspi_config}.
+
 \begin{itemize}
+	\tightlist
 	\item Set Keyboard Layout
 	\item Update to lastest software
 	\item Set Timezone
 	\item Set language [optional]
 	\item Change default login password
 	\item Configure Wifi-zone [if present]
-	\item Enable \gls{SPI}
+	\item Enable \gls{SPI} for CAN controller
+	\item Enable \gls{I2C} for RTC
+	\item Set hostname
+	\item change default password
+	\item change memory for GPU
 \end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/raspi-config}
+	\caption{Raspi-config example output}
+	\label{fig:raspi_config}
+\end{figure}
+
+The current settings are presented in table \ref{tab:suggested_config}. 
+
+\begin{table}[hb]
+	\centering
+	\begin{tabular}{rl}
+		\toprule
+		\textbf{Username:}& pi\\
+		\textbf{Password:}& fiatelettra\\
+		\textbf{Hostname:}& raspberrypi\\
+		\textbf{Language:}& en\_GB.UTF-8 UTF-8\\
+	    \textbf{Locale and Timezone:}& Lisbon\\
+	    \textbf{Keyboard layout:}& pt\_PT\\
+	    \textbf{SPI:}& on\\	
+		\textbf{I2C:}& on\\
+		\textbf{Memory split:}& 16 (minimum since is running headless)\\
+		\bottomrule
+	\end{tabular}
+	\caption{Suggested details for \gls{Rpi}}
+	\label{tab:suggested_config}
+\end{table}
+
 
 
 %-------------------------------------------------------------------------------
@@ -88,8 +126,11 @@ If the user as been granted with permission to login, the next steps are used to
 \section{Troubleshooting}
 
 \begin{description}[style=nextline]
-	\item [The command \colorbox{gray!10}{arp -a} do not show my \gls{Rpi}] In that case, try use the \colorbox{gray!10}{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!	
+	\item [The command \colorbox{gray!15}{arp -a} do not show my \gls{Rpi}] In that case, try use the \colorbox{gray!15}{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!	
 \end{description}
 
+\begin{description}[style=nextline]
+	\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \colorbox{gray!15}{ifconfig}
+\end{description}
 
 
