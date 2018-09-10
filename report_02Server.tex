@@ -10,23 +10,23 @@ For using the \gls{SBC} it is required the following hardware:
 	\item \textbf{Raspberry Pi \gls{SBC}} Recommended version at least 3 since it has a built in wifi.
 	\item \textbf{MicroSD card} Recommended with 8Gb capacity at least.
 	\item \textbf{Power Supply} Recommended 2.5 Amps . While developing, it is used as the main power for the \gls{SBC}.
-	\item \textbf{Host computer (any OS)} with internet and ability to read MicroSD cards.
+	\item \textbf{Host computer (any \gls{OS})} with internet and ability to read MicroSD cards.
 	\item \textbf{Ethernet cable} for connecting to router/switch for internet access. It can also be used an crossover cable connecting directly to PC if it is able to share internet connection.
 \end{itemize}
 
 \section{Initial Preparation}
-This preparation will focus on providing instructions to a minimal headless setup. For this reason, the recommended OS image version is the Raspbian Lite.
+This preparation will focus on providing instructions to a minimal headless setup. For this reason, the recommended \gls{OS} image version is the Raspbian Lite.
 
-For this step it is recommended to be used the \href{https://etcher.io/}{Etcher} software for burning the OS image into microSD card. It is assumed the user is familiar with ssh capable software, for example \href{https://www.putty.org/}{Putty}. 
+For this step it is recommended to be used the \href{https://etcher.io/}{Etcher} software for burning the \gls{OS} image into microSD card. It is assumed the user is familiar with ssh capable software, for example \href{https://www.putty.org/}{Putty}. 
 The next steps are mainly based in the documentation guide provided by \cite{raspberry_install_guide}.
 
 \begin{enumerate}
 	\tightlist
-	\item Download the OS image, Raspbian Lite version in \href{https://www.raspberrypi.org/downloads/raspbian/}{here}
+	\item Download the \gls{OS} image, Raspbian Lite version in \href{https://www.raspberrypi.org/downloads/raspbian/}{here}
 	\item Connect the MicroSD to host computer.
 	\item Open Etcher and:
 	\begin{enumerate}
-		\item Select OS image or zip file that have been downloaded.
+		\item Select \gls{OS} image or zip file that have been downloaded.
 		\item Select the SD card you wish to write your image to.
 		\item Review your selections and click 'Flash!' to begin writing data to the SD card.
 		\item after successful write, continue to next step.
@@ -45,7 +45,7 @@ If everything went as expected, the \gls{Rpi} will start to boot and prepare the
 %-------------------------------------------------------------------------------
 
 \subsection{Remote access}
-The next step is to find the ip address of the \gls{Rpi}. For example, in linux terminal type \colorbox{gray!15}{arp -a}. In figure \ref{arp_example} is seen an output example. In red stroke is shown the \gls{MAC} address of a \gls{Rpi}. Every \gls{MAC} is unique and the first three bytes are fixed in every \gls{Rpi} wich correspond to organizationally unique identifier \cite{mac_wiki} associated to Raspberry Pi Foundation, B8:27:EB \cite{wireshark_mac}.
+The next step is to find the ip address of the \gls{Rpi}. For example, in linux terminal type \console{arp -a}. In figure \ref{arp_example} is seen an output example. In red stroke is shown the \gls{MAC} address of a \gls{Rpi}. Every \gls{MAC} is unique and the first three bytes are fixed in every \gls{Rpi} wich correspond to organizationally unique identifier \cite{mac_wiki} associated to Raspberry Pi Foundation, B8:27:EB \cite{wireshark_mac}.
 
 \begin{figure}[hb]
 	\centering
@@ -55,7 +55,7 @@ The next step is to find the ip address of the \gls{Rpi}. For example, in linux 
 \end{figure}
 
 Perform the first login with using the default login details as shown in table \ref{tab:default_login}.
-Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be performed using \colorbox{gray!15}{ssh pi@\textless ip-of-Rpi\textgreater} command and entering the default password.
+Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be performed using \console{ssh pi@\textless ip-of-Rpi\textgreater} command and entering the default password.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{rl}
@@ -73,7 +73,7 @@ Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be per
 %-------------------------------------------------------------------------------
 \subsection{Initial update and configuration}
 If the user as been granted with permission to login, the next steps are used to perform a few tweaks.
-To do that user must use the command \colorbox{gray!15}{sudo raspi-config}. Example output is seen in figure \ref{fig:raspi_config}.
+To do that user must use the command \console{sudo raspi-config}. Example output is seen in figure \ref{fig:raspi_config}.
 
 \begin{itemize}
 	\tightlist
@@ -126,11 +126,11 @@ The current settings are presented in table \ref{tab:suggested_config}.
 \section{Troubleshooting}
 
 \begin{description}[style=nextline]
-	\item [The command \colorbox{gray!15}{arp -a} do not show my \gls{Rpi}] In that case, try use the \colorbox{gray!15}{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!	
+	\item [The command \console{arp -a} do not show my \gls{Rpi}] In that case, try use the \console{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!	
 \end{description}
 
 \begin{description}[style=nextline]
-	\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \colorbox{gray!15}{ifconfig}
+	\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \console{ifconfig}
 \end{description}
 
 

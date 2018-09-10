@@ -1,13 +1,48 @@
 \chapter{Code Guidelines}
 In this chapter is described the main guidelines used for coding and documentation as well as relevant suggestions.
-Since the majority of code is developed in Python, the guidelines are provided for that language. However similar suggestion may apply for the other languages cases.
+Since the majority of code is developed in Python, the guidelines are provided for that language. However similar suggestion may apply for the other languages cases. Here follows a list of sugestions:
+\begin{description}
+	\item [Git] \hfill \\The first suggestion is the code version control system, Git. It has a lot integrations with majority of IDE's and have lot of free tools to manage it. Documentation and guides to become familiar with it can be found at \href{https://try.github.io/}{try.github.io}
+	\item[Python3] \hfill \\ Since Python core team is dropping support for python 2.7.x in 2020 \cite{python_end_of_life} and some of important package developers are also dropping support for it \cite{numpy_end_of_life}, the chosen \textbf{version is the 3.X.}
+	%----------------------------------------------------------------------------------------------------
+	\item[Use virtual environment] \hfill\\ Typically, every Linux distribution uses python to run critical routines. Perturbing the main ecosystem of python packages should be avoided, at least during development phase. Raspbian is no exception, so it is suggested to use virtual environments. It is used to create a isolated local installation in the directory you are working. Since version 3.5 the official recommended tool for creating virtual environments is the venv \cite{python_doc}.
+	To create a virtual environment use the following console command \console{python3 -m venv /path/to/new/virtual/environment} or  assuming the user is currently in desired local path, simplify to \console{python3 -m venv .} 
+	To activate/deactivate the local environment follow the specification accordingly to used \gls{OS} as present in table \ref{tab:venv_activate}, using the same assumption as before. After activation, the shell prefix will change from the default to \console{(\textless path of venv\textgreater)} which is a easy away to check if environment is active or not.
+	
+	\begin{table}[hb]
+		\centering
+		\begin{tabular}{lll}
+			\toprule
+			\multicolumn{1}{c}{\textbf{Shell}} & \multicolumn{1}{c}{\textbf{Activate}} & \multicolumn{1}{c}{\textbf{Deactivate}}\\
+			\midrule
+			\multicolumn{3}{c}{POSIX}\\
+			\midrule
+			bash/zsh & source ./bin/activate & deactivate\\
+			fish & source ./bin/activate.fish & deactivate\\
+			csh/tcsh & source ./bin/activate.csh & deactivate\\
+			\midrule
+			\multicolumn{3}{c}{Windows}\\
+			\midrule
+			cmd & .\textbackslash Scripts\textbackslash activate.bat & deactivate\\
+			PowerShell & .\textbackslash Scripts\textbackslash Activate.ps1 & deactivate\\
+			\bottomrule
+		\end{tabular}
+		\caption{Activation/deactivation of venv OS specific}
+		\label{tab:venv_activate}
+	\end{table}
 
-The first suggestion is the code version control system, Git. It has a lot integrations with majority of IDE's and have lot of free tools to manage it. Documentation and guides to become familiar with can be followed at \href{https://try.github.io/}{try.github.io}
+	\item[Requirements files (requirements.txt)] \hfill \\Requirement files are an easy away to install all the requisites necessary to run the code and ensure repeatability of installations. Unless any particular reason, a restriction of any package version should be avoided. Requirements file can be as simple as a list of necessary packages or more complex struture, if needed \cite{python_requirements}. Installation of requirements is done by running the following command \console{pip install -r requirements.txt}
+	
+	\item[Use Google style docstrings] \hfill \\ A good documentation is a key point for keeping good readability of a project. Docstrings format from Google Style Guide \cite{python_google_style} is adopted.
+	\item[Use sphinx with automation] \hfill \\ Similar to previous point, sphinx will allow the auto documentation generation for code. Sphinx is a popular tool for creating documentation and is used also in \href{https://readthedocs.org}{readthedocs.org}, that allows to integrate documentation update with commits in the three main git repository management services, GitHub, Bitbucket, and GitLab. Using autodoc and napoleon extension allow an easy maintenance of code documentation.
+	\item[Argparse] \hfill \\ Use \href{https://docs.python.org/3/library/argparse.html}{argparse} to create clean and readable argument handling if necessary. It auto generates help, description and handles unknown options.
+	\item[Logging] \hfill \\ Since the main intention is to run programs in a headless computer, the \href{https://docs.python.org/3/library/logging.html}{logging module} should be used instead of typical print() function. Not only it helps keep tracking of events defined in code, but also keeps track of other modules events. It also allows the creation of multiple destinations using the handlers and each handler can have its own format. Typical handlers used in project are files, console and websockets (currently only in development branchs)
+\end{description}
+
+
+
  
 
-Since Python core team is dropping support for python 2.7.x in 2020 \cite{python_end_of_life} and some of important package developers are also dropping support for it \cite{numpy_end_of_life}, the chosen \textbf{version is the 3.X.}
-
-Typically, every Linux distribution uses python to run critical routines. Perturbing the main ecosystem of python packages should be avoided, at least during development phase. Raspbian is no exception, so it is suggested to use virtual environments. It is used to create a isolated local installation in the directory you are working. Since version 3.5 the official recommended tool for creating virtual enviroments is the venv.
 
 
 

@@ -99,7 +99,7 @@
 %  Cover page
 % ----------------------------------------------------------------------
 \input{report_FrontCover} % file "Thesis_FrontCover.tex"
-\cleardoublepage
+\clearpage
 
 %% ----------------------------------------------------------------------
 %% Dedication page (optional)
@@ -111,7 +111,7 @@
 %  Acknowledgments (optional)
 % ----------------------------------------------------------------------
 \input{report_Acknowledgements} % file "Thesis_Acknowledgements.tex"
-\cleardoublepage
+\clearpage
 
 % ----------------------------------------------------------------------
 %  Abstract (both in English and Portuguese)
@@ -129,7 +129,7 @@
 % Table of contents
 %
 \tableofcontents
-\cleardoublepage
+\clearpage
 
 % List of tables
 %
@@ -138,7 +138,7 @@
 \addcontentsline{toc}{section}{\listtablename}
 % Generate list
 \listoftables
-\cleardoublepage
+\clearpage
 
 % List of figures
 %
@@ -147,7 +147,7 @@
 \addcontentsline{toc}{section}{\listfigurename}
 % Generate list
 \listoffigures
-\cleardoublepage
+\clearpage
 
 % Nomenclature
 %
@@ -157,7 +157,7 @@
 \glsfindwidesttoplevelname[nomencl]
 \setglossarystyle{alttree}
 \printglossary[type=nomencl]
-\cleardoublepage
+\clearpage
 
 % List of Acronyms
 %
@@ -168,7 +168,7 @@
 \glsfindwidesttoplevelname[acronym]
 \setglossarystyle{alttree}
 \printglossary[type=\acronymtype]
-\cleardoublepage
+\clearpage
 %
 % Set arabic numbering (1,2,...) after preface
 %
@@ -181,17 +181,19 @@
 
 % file "Thesis_Introduction.tex"
 \input{report_01Introduction} 
-\cleardoublepage
+\clearpage
 
 \input{report_02Server} % file "Thesis_Background.tex"
-\cleardoublepage
+\clearpage
 
 \input{report_03CodeGuides}
-\cleardoublepage
+\clearpage
 
-\input{report_04GPS}
-\cleardoublepage
+\input{report_04Batteries}
+\clearpage
 
+\input{report_0XGPS}
+\clearpage
 
 % ----------------------------------------------------------------------
 %  Bibliography
@@ -245,7 +247,7 @@
 
 % External bibliography database file in the BibTeX format
 \bibliography{report_bib_DB} % file "Thesis_bib_DB.bib"
-\cleardoublepage
+\clearpage
 
 % ----------------------------------------------------------------------
 %  Appendix (optional)

@@ -37,6 +37,10 @@
 \usepackage[english]{babel} % <<<<< English
 % ******************************* SELECT *******************************
 
+%-----------------------------------------------------------------------
+% Dumb text generator for in development tests
+%-----------------------------------------------------------------------
+\usepackage{blindtext}
 
 % List of LaTeX variable names: \abstractname, \appendixname, \bibname,
 %   \chaptername, \contentsname, \listfigurename, \listtablename, ...)
@@ -505,3 +509,4 @@
 
 
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\console}[1]{\colorbox{gray!15}{#1}}
