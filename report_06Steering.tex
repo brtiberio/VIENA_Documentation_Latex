@@ -1,0 +1,75 @@
+\chapter{Steering}
+The control of steering wheel take advantage of motor for steering assist originally present in the car. The motor is controlled by a positioning controllers designed for brushed DC and brushless DC motors with encoders. denominated \gls{EPOS} by many manufactures
+
+\section{Maxon EPOS 70/10 controller}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/EPOS-70-10-10-A-11-70VDC-Detail.jpg}
+	\caption{Maxon EPOS 70/10 controller}
+	\label{fig:maxon_epos}
+\end{figure}
+The controller available to use is the \href{https://www.maxonmotor.com/maxon/view/product/control/Positionierung/300583}{Maxon EPOS 70/10}. It includes CAN network interface and a RS-232. The relevant electrical specs can be seen in table \ref{tab:epos_specs}. The full specifications as well as connections layout must be seen in \cite{epos_hardware}. The controller contains two led in a single package that is used as status reference. Table \ref{tab:maxon_led_status} present the status of device based on pattern of leds shown by it.
+
+\begin{table}[hb]
+	\centering
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Description} & \textbf{Min.} & \textbf{Max.} & \textbf{Unity}\\
+		\midrule
+		Power supply voltage $\text{V}_\text{CC}$ (Ripple \textless 10\%) & 11 & 70 & $\text{V}_\text{DC}$\\
+		Max. output voltage & & $0.9\cdot\text{V}_\text{CC}$ & $\text{V}_\text{DC}$\\
+		Max. output current $\text{I}_\text{max}$ (\textless 1sec) &  & 25 & A\\
+		Continuous output current $\text{I}_\text{cont}$ & & 10 & A\\
+		Sample rate PI - current controller &10K & 10K & Hz\\ 
+		Sample rate PI - speed controller  &1K & 1K & Hz\\ 
+		Sample rate PI - positioning controller &1K & 1K & Hz\\
+		Max. speed (motors with 2 poles) & & 25K & rpm\\
+		\bottomrule
+	\end{tabular}
+    \caption{EPOS electric specifications}
+    \label{tab:epos_specs}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{p{0.7\textwidth}cc}
+		\toprule
+		\textbf{Description} & \textbf{Red} & \textbf{Green}\\
+		\midrule
+		\begin{minipage}{0.4\linewidth}
+			The EPOS is in state:
+			\begin{itemize}
+				\item Switch ON Disabled
+				\item Ready to Switch ON
+				\item Switched ON
+				\item The power stage is disabled
+			\end{itemize} 
+		\end{minipage} & OFF & Blinking ($\approx$ 1Hz)\\
+	    \midrule
+	    \begin{minipage}{0.5\linewidth}
+	    	The EPOS is in state:
+	    	\begin{itemize}
+	    		\item Operation Enable
+	    		\item Quick Stop Active
+	    		\item The power stage is enabled
+	    	\end{itemize} 
+	    \end{minipage} & OFF & ON\\
+        \midrule
+        EPOS is in Fault State & ON & OFF\\
+        \midrule
+        EPOS is in temporary state Fault Reaction Active & ON & ON\\
+        \midrule
+        There is no valid firmware on the EPOS (due to a failed firmware download) & ON & Flashing \\ 
+		\bottomrule
+	\end{tabular}
+	\caption{Maxon EPOS 70/10 Led status}
+	\label{tab:maxon_led_status}
+\end{table}
+\section{Steering sensor support}
+\blindtext
+
+\section{Calibration process}
+\blindtext
+
+\section{interface library}
+\blindtext
