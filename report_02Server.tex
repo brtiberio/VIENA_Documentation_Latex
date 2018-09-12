@@ -38,6 +38,13 @@ The next steps are mainly based in the documentation guide provided by \cite{ras
 	\item Plug in the power supply to \gls{Rpi}.
 \end{enumerate}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/Etcher_flashing.png}
+	\caption{Etcher flashing image to microSD card}
+	\label{fig:etcher_flashing}
+\end{figure}
+
 If everything went as expected, the \gls{Rpi} will start to boot and prepare the first setup. It will be seen led light blinking indicating activity. After a few minutes, it should be possible to access it remotely via ssh
 
 %-------------------------------------------------------------------------------
@@ -68,12 +75,26 @@ Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be per
 	\label{tab:default_login}
 \end{table}
 
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/ssh_sucessfull.png}
+	\caption{SSH sucessfull login}
+	\label{fig:ssh_successfull}
+\end{figure}
+
 %-------------------------------------------------------------------------------
 %  initial update and configurations 
 %-------------------------------------------------------------------------------
 \subsection{Initial update and configuration}
 If the user as been granted with permission to login, the next steps are used to perform a few tweaks.
 To do that user must use the command \console{sudo raspi-config}. Example output is seen in figure \ref{fig:raspi_config}.
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/raspi-config}
+	\caption{Raspi-config example output}
+	\label{fig:raspi_config}
+\end{figure}
 
 \begin{itemize}
 	\tightlist
@@ -90,25 +111,22 @@ To do that user must use the command \console{sudo raspi-config}. Example output
 	\item change memory for GPU
 \end{itemize}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\textwidth]{figures/raspi-config}
-	\caption{Raspi-config example output}
-	\label{fig:raspi_config}
-\end{figure}
+
 
 The current settings are presented in table \ref{tab:suggested_config}. 
 
-\begin{table}[hb]
+\begin{table}[h]
 	\centering
 	\begin{tabular}{rl}
 		\toprule
 		\textbf{Username:}& pi\\
 		\textbf{Password:}& fiatelettra\\
 		\textbf{Hostname:}& raspberrypi\\
+		\textbf{wait for network at boot:}& no\\
 		\textbf{Language:}& en\_GB.UTF-8 UTF-8\\
-	    \textbf{Locale and Timezone:}& Lisbon\\
+	    \textbf{Timezone:}& Europe $\rightarrow$ Lisbon\\
 	    \textbf{Keyboard layout:}& pt\_PT\\
+	    \textbf{WIFI country:}& PT\_Portugal\\
 	    \textbf{SPI:}& on\\	
 		\textbf{I2C:}& on\\
 		\textbf{Memory split:}& 16 (minimum since is running headless)\\
@@ -118,6 +136,53 @@ The current settings are presented in table \ref{tab:suggested_config}.
 	\label{tab:suggested_config}
 \end{table}
 
+After successfully changed the settings, perform a full update and upgrade by running:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none]
+sudo apt update && sudo apt upgrade -y
+\end{lstlisting}
+
+
+\section{Prepare CAN interface}
+\label{section:can}
+The current protoboard uses the \gls{IC} \href{https://www.microchip.com/wwwproducts/en/MCP2515}{MCP2515 as CAN network controller} and \href{https://www.microchip.com/wwwproducts/en/MCP2551}{MCP2551 as CAN transceiver}. Figure \ref{fig:proto_can} shows the used protoboard with highlighted connections names and parts.
+
+The schematic circuit implemented in the protoboard is present in figure \ref{fig:schematic_proto_can}.
+Current raspbian kernel, automatically support the can interaction via \gls{SPI} to \gls{IC} MCP2515, making it available via SocketCAN. To enable that, it is necessaries to configure MCP2515 driver on device tree overlay and install the can-utils package.
+\begin{itemize}
+	\tightlist
+	\item Install can-utils using \console{sudo apt install can-utils}
+	\item Enable MCP2515 overlay by using \console{sudo nano /boot/config.txt} and append at end:
+	\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,basicstyle=\ttfamily]
+		#CAN bus controllers
+		dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
+		dtoverlay=spi-bcm2835
+	\end{lstlisting}
+	\item To enable the interface at boot time, use \console{sudo nano /etc/network/interfaces} and append at end:
+	\begin{minipage}{\linewidth} % to avoid breaking on page
+		\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+		auto can0
+		iface can0 inet manual
+		  pre-up /sbin/ip link set can0 type can bitrate 1000000 \ 
+		  triple-sampling on restart-ms 10
+		  up /sbin/ifconfig can0 up
+		  down /sbin/ifconfig can0 down
+		\end{lstlisting}
+	\end{minipage}
+\end{itemize}
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.5\linewidth]{figures/proto_can}
+	\caption{Protoboard designed for CAN interface}
+	\label{fig:proto_can}
+\end{figure}
+
+\begin{figure}[hb]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/protoschematic}
+	\caption{CAN protoboard schematic}
+	\label{fig:schematic_proto_can}
+\end{figure}
 
 
 %-------------------------------------------------------------------------------
