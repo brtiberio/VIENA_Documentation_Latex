@@ -104,7 +104,7 @@ To do that user must use the command \console{sudo raspi-config}. Example output
 	\item Set language [optional]
 	\item Change default login password
 	\item Configure Wifi-zone [if present]
-	\item Enable \gls{SPI} for CAN controller
+	\item Enable \gls{SPI} for \gls{CAN} controller
 	\item Enable \gls{I2C} for RTC
 	\item Set hostname
 	\item change default password
@@ -144,7 +144,7 @@ sudo apt update && sudo apt upgrade -y
 
 \section{Prepare CAN interface}
 \label{section:can}
-The current protoboard uses the \gls{IC} \href{https://www.microchip.com/wwwproducts/en/MCP2515}{MCP2515 as CAN network controller} and \href{https://www.microchip.com/wwwproducts/en/MCP2551}{MCP2551 as CAN transceiver}. Figure \ref{fig:proto_can} shows the used protoboard with highlighted connections names and parts.
+The current protoboard uses the \gls{IC} \href{https://www.microchip.com/wwwproducts/en/MCP2515}{MCP2515} as \gls{CAN} network controller and \href{https://www.microchip.com/wwwproducts/en/MCP2551}{MCP2551} as \gls{CAN} transceiver. Figure \ref{fig:proto_can} shows the used protoboard with highlighted connections names and parts.
 
 The schematic circuit implemented in the protoboard is present in figure \ref{fig:schematic_proto_can}.
 Current raspbian kernel, automatically support the can interaction via \gls{SPI} to \gls{IC} MCP2515, making it available via SocketCAN. To enable that, it is necessaries to configure MCP2515 driver on device tree overlay and install the can-utils package.
@@ -152,32 +152,51 @@ Current raspbian kernel, automatically support the can interaction via \gls{SPI}
 	\tightlist
 	\item Install can-utils using \console{sudo apt install can-utils}
 	\item Enable MCP2515 overlay by using \console{sudo nano /boot/config.txt} and append at end:
-	\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,basicstyle=\ttfamily]
+	\begin{lstlisting}[label={lst:boot_settings},frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,basicstyle=\ttfamily]
 		#CAN bus controllers
 		dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
 		dtoverlay=spi-bcm2835
-	\end{lstlisting}
+\end{lstlisting}
 	\item To enable the interface at boot time, use \console{sudo nano /etc/network/interfaces} and append at end:
 	\begin{minipage}{\linewidth} % to avoid breaking on page
-		\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
 		auto can0
 		iface can0 inet manual
 		  pre-up /sbin/ip link set can0 type can bitrate 1000000 \ 
 		  triple-sampling on restart-ms 10
 		  up /sbin/ifconfig can0 up
 		  down /sbin/ifconfig can0 down
-		\end{lstlisting}
+\end{lstlisting}
 	\end{minipage}
 \end{itemize}
+This will enable the \gls{CAN} interface at boot time with the setting present in table \ref{tab:can_settings}.
+
 
 \begin{figure}[hb]
-	\centering
-	\includegraphics[width=0.5\linewidth]{figures/proto_can}
-	\caption{Protoboard designed for CAN interface}
-	\label{fig:proto_can}
+	\begin{minipage}{0.49\linewidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/proto_can}
+		\caption{Protoboard designed for CAN interface}
+		\label{fig:proto_can}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centering
+		\begin{tabular}{rl}
+			\toprule
+			\textbf{Parameter} & \textbf{Value}\\
+			\midrule
+			Bitrate & 1Mbps\\
+			Triple Sampling & on\\
+			Sampling point & 0.75\\
+			Restart & 10ms\\
+			\bottomrule
+		\end{tabular}
+	    \captionof{table}{CAN used settings}
+	    \label{tab:can_settings}
+	\end{minipage}
 \end{figure}
 
-\begin{figure}[hb]
+\begin{figure}[!hb]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/protoschematic}
 	\caption{CAN protoboard schematic}
@@ -185,17 +204,161 @@ Current raspbian kernel, automatically support the can interaction via \gls{SPI}
 \end{figure}
 
 
+
+%-------------------------------------------------------------------------------
+% create a additional packages installation
+%-------------------------------------------------------------------------------
+\section{Additional packages installation}
+The following list describes additional package installation that are currently used or are planned to be used.
+\begin{description}[style=nextline]
+	\item[python3-pip] Required to enable pip manager.
+	\item[python3-venv] To enable the creation of virtual environments.
+	\item[libatlas-base-dev] Required to install numpy package.
+	\item[mosquitto] Local \gls{MQTT} broker used currently in development branch. It might be useful to install also the \console{mosquitto-clients}.
+	\item[build-essential] Required if need to compile anything.
+	\item[git] Add git support to raspbian.
+	\item[nginx] Local lightweight web server application used to control or see current status of vehicle (in development) 
+	\item[ufw] Firewall interface to improve security.
+	\item[dnsmasq] Provides network infrastructure for small networks as \gls{DNS}, \gls{DHCP}. Will be used to configure \gls{Rpi} as an \gls{AP}.
+	\item[hostapd] Daemon for configuring and enabling the \gls{AP}
+\end{description}
+
+\section{Post-Installation Procedures}
+After installing the recommend packages, user should perform several configurations. In this section is described each of them.
+
+\subsection{Adding user to groups}
+After adding user to any group, \textbf{a logout must be performed to changes take effect}. Changes can be confirmed by using the command \console{groups} that prints the groups current user is in.
+\begin{description}[style=nextline]
+	\item[www-data] Grant user ability to perform changes on /var/www. Run \console{sudo adduser pi www-data}
+	\item[dialout] Grant user ablility to use ports. Run \console{sudo adduser pi dialout}
+\end{description}
+
+%-------------------------------------------------------------------------------
+% installing mosquitto
+%-------------------------------------------------------------------------------
+\subsection{Configuring MQTT Broker}
+Current and planned development roadmap use MQTT brocker to change messages between user or high level software and hardware interface. It is also used websockets and in this section will be shown how to enable it. The currently  broker is \href{https://mosquitto.org/}{mosquitto}. If not already installed, use:\\ \console{sudo apt install mosquitto} \\
+After installation edit mosquitto.conf by using \console{sudo nano /etc/mosquitto/mosquitto.conf} and add an additional port for websockets protocol. If advanced configuration is need refer to \cite{mosquitto_conf}.
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+pid_file /var/run/mosquitto.pid
+persistence true
+persistence_location /var/lib/mosquitto/
+
+log_dest file /var/log/mosquitto/mosquitto.log
+
+include_dir /etc/mosquitto/conf.d
+
+port 1883
+listener 8080
+protocol websockets
+\end{lstlisting}
+
+\subsection{Configuring Rpi as AP}
+While in development user is advised to use ehternet connection between developement PC and \gls{Rpi}, it is useful to configure \gls{Rpi} as an \gls{AP} so users can connect to it using wifi in field environment. Here will be assumed that internet connection is provided via ethernet cable during development phase, for example via host PC, and during normal operation \gls{Rpi} will not be connected to internet. This section follows the main instructions given in \cite{raspberry_AP}.
+\begin{itemize}
+	\tightlist
+	\item Turn off hostapd and dnsmasq. Perform this using systemctl with:
+	\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo systemctl stop dnsmasq
+sudo systemctl stop hostapd
+\end{lstlisting}
+	\item Configuring a static IP. Edit \console{/etc/dhcpcd.conf} with nano and change the file as shown below, assuming the user wants to assign the server IP address as 192.168.4.1, using wlan0 as interface.
+	\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+# static ip address for wlan0 to be used as AP
+interface wlan0
+    static ip_address=192.168.4.1/24
+    nohook wpa_supplicant
+\end{lstlisting}
+   	\item Restart dhcpd using \console{sudo service dhcpcd restart}
+   	\item Configuring the DHCP server (dnsmasq). Perform a copy of original file and create a new one
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  
+sudo nano /etc/dnsmasq.conf
+\end{lstlisting}
+   	On new opened configuration file place that will allow dhcp on interface wlan0 giving ip addresses to clients from 192.168.4.2 to 192.168.4.20 with a lease time of 24h:
+   	\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+interface=wlan0
+dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
+\end{lstlisting}
+   	\item Configuring the access point host software (hostapd). Table \ref{tab:ap_settings} show the suggested SSID and password. Edit file /etc/hostapd/hostapd.conf and add:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+interface=wlan0
+driver=nl80211
+ssid=VIENA
+hw_mode=g
+channel=7
+wmm_enabled=0
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=fiatelettra
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+\end{lstlisting}
+Now edit file \console{sudo nano /etc/default/hostapd} and add to it:\\ \console{DAEMON\_CONF="/etc/hostapd/hostapd.conf"}
+\item Restart services: 
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo systemctl start hostapd
+sudo systemctl start dnsmasq
+\end{lstlisting}
+\item Edit /etc/sysctl.conf and uncomment line \console{net.ipv4.ip\_forward=1}
+\item Add a masquerade for outbound traffic on ehternet port:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo iptables -t nat -A  POSTROUTING -o eth0 -j MASQUERADE
+sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+\end{lstlisting}
+\item Edit /etc/rc.local and add this just above \console{exit 0} to install these rules on boot:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+iptables-restore < /etc/iptables.ipv4.nat
+\end{lstlisting}
+\item Reboot. After it user should be able to connect to configured network and current user authentication settings.
+\end{itemize}
+
+\begin{table}[hb]
+	\centering
+	\begin{tabular}{rl}
+		\toprule
+		\textbf{SSID} & VIENA\\
+		\textbf{password} & fiatelettra\\
+		\bottomrule
+	\end{tabular}
+    \caption{Suggested AP login settings}
+    \label{tab:ap_settings}
+\end{table}
+
+\subsection{Configure Nginx}
+\blindtext
+
+\subsection{Configure firewall}
+First enable firewall by using \console{sudo ufw enable}. After use the following console command to enable the previously configured ports for ssh connection, mqtt connections and http server configured in nginx:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo ufw allow 22
+sudo ufw allow 80
+sudo ufw allow 1883
+sudo ufw allow 8080
+sudo ufw allow 80
+\end{lstlisting}
+If needed, confirm status with \console{sudo ufw status}. For more advanced use run \console{man ufw}.
+
 %-------------------------------------------------------------------------------
 % create a Troubleshooting section
 %-------------------------------------------------------------------------------
 \section{Troubleshooting}
 
 \begin{description}[style=nextline]
-	\item [The command \console{arp -a} do not show my \gls{Rpi}] In that case, try use the \console{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!	
-\end{description}
-
-\begin{description}[style=nextline]
+	\item [The command \console{arp -a} do not show my \gls{Rpi}] In that case, try use the \console{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!
+    %---------------------------------------------------------------------------	
 	\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \console{ifconfig}
+	%---------------------------------------------------------------------------
+	\item [\gls{CAN} seems to not be working] First see if MCP2515 is successfully connected. 
+	\begin{enumerate}
+		\item Use \console{dmesg \textbar grep mcp2515*}. If it says successfull configured, go to next step. If not, recheck connections and restart. Also make sure the oscilator frequency match the used on boot configuration file settings as seen \hyperref[lst:boot_settings]{\textcolor{cyan}{here}}.
+		\item Check if can is detected as a socketcan interface. Use \console{ifconfig}. If \gls{CAN} is available, it should show a section for can0. If not, re-check if can-utils is installed.
+		\item View details about \gls{CAN} connection. use \console{ip -details -statistics link show can0} to get more information. If current state is \console{BUS-OFF}, manually restart the \gls{CAN} by using the following:
+		\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+		sudo ip link set can0 down
+		sudo ip link set can0 up \end{lstlisting}
+	\end{enumerate}
 \end{description}
-
-
