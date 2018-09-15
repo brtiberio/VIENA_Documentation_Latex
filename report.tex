@@ -197,8 +197,8 @@
 \input{report_06Steering}
 \clearpage
 
-\input{report_0XGPS}
-\clearpage
+%\input{report_0XGPS}
+%\clearpage
 
 % ----------------------------------------------------------------------
 %  Bibliography
@@ -262,7 +262,25 @@
 %           2) the document shall not exceed a total of 100 pages (per IST 
 %regulations)
 % ----------------------------------------------------------------------
-%\appendix
+\appendix
+\clearpage
+\pagestyle{empty}
+\newlength{\originalVOffset}
+\newlength{\originalHOffset}
+\setlength{\originalVOffset}{\voffset}   
+\setlength{\originalHOffset}{\hoffset}
+
+\setlength{\voffset}{0cm}
+\setlength{\hoffset}{0cm}
+\phantomsection
+\addcontentsline{toc}{chapter}{NovatelOEM4 GPS library Documentation}%
+\includepdf[pages=-]{appendix/novatel-oem4-python}
+\phantomsection
+\addcontentsline{toc}{chapter}{Maxon EPOS CANopen Library Documentation}%
+\includepdf[pages=-]{appendix/maxon-epos-canopen}
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+
 %
 %% add page number prefix according to apendix chapter (optional)
 %%\renewcommand{\thepage}{\thechapter.\arabic{page}}

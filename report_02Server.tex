@@ -215,7 +215,7 @@ The following list describes additional package installation that are currently 
 	\item[python3-venv] To enable the creation of virtual environments.
 	\item[libatlas-base-dev] Required to install numpy package.
 	\item[mosquitto] Local \gls{MQTT} broker used currently in development branch. It might be useful to install also the \console{mosquitto-clients}.
-	\item[build-essential] Required if need to compile anything.
+	\item[build-essential] Required if needed to compile anything.
 	\item[git] Add git support to raspbian.
 	\item[nginx] Local lightweight web server application used to control or see current status of vehicle (in development) 
 	\item[ufw] Firewall interface to improve security.
@@ -338,7 +338,6 @@ sudo ufw allow 22
 sudo ufw allow 80
 sudo ufw allow 1883
 sudo ufw allow 8080
-sudo ufw allow 80
 \end{lstlisting}
 If needed, confirm status with \console{sudo ufw status}. For more advanced use run \console{man ufw}.
 

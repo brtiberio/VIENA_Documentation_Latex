@@ -37,8 +37,73 @@ a Gps class object and execute the following commands on gps receiver:
   \textbf{shutdown:} safely disconnects from gps receiver
 \end{itemize}
 
-\textbf{Example:}
-
-\begin{lstlisting}[language=bash,frame=none,backgroundcolor=\color{gray!15},numbers=none]
+\begin{lstlisting}[language=python,frame=none,backgroundcolor=\color{gray!15},numbers=none]
 $python NovatelOEM4.py
 \end{lstlisting}
+
+
+\section{Changelog}
+\label{\detokenize{index:changelog}}\begin{quote}\begin{description}
+		\item[{version 0.4}] \leavevmode
+		Moved from optoparse to argparse module.
+		changed Queue to make it compatible with python3 queue. Backwards compatibility is maintained.
+		Restructured default location. Moved from Lib folder to base path.
+		Moved examples to proper folder. This cause backwards compatibility problems. On import, replace
+		\console{import Lib.NovatelOEM4} with simply \console{import NovatelOEM4}
+		
+		\item[{version 0.3}] \leavevmode
+		logging configuration as moved outside module to enable user to use already
+		configured logging handler. Check \href{https://docs.python.org/2/howto/logging-cookbook.html\#using-logging-in-multiple-modules{}`}{multimodule logging docs}
+		
+\end{description}\end{quote}
+\begin{quote}\begin{description}
+		\item[{version 0.2}] \leavevmode
+		data from bestxyz message is now placed into a Queue.Queue() FIFO
+		
+		\item[{version 0.1}] \leavevmode
+		initial release
+\end{description}\end{quote}
+
+\section[class NovatelOEM4.Gps]{\prefix{class NovatelOEM4.}\textbf{Gps}\args{sensorName='GPS'}}
+Novatel OEM4 GPS library class
+
+This class contents is an approach to create a library for Novatel OEM 4 GPS
+\begin{quote}
+\begin{description}[style=nextline]
+		\item[Parameters] \leavevmode
+		\sphinxbfcode{sensorName} (optional) \textendash{} A sensor name if used with multiple devices.
+		\item[Returns] An object of class NovatelOEM4.Gps	
+\end{description}
+\end{quote}
+
+\subsection{askLog}
+\noindent \prefix{Gps.}\textbf{askLog}\args{logID=’BESTXYZ’, port=192, trigger=4, period=0, offset=0, hold=0}
+Request a log from receiver.
+\begin{quote}\begin{description}
+		\item[{Parameters}] \leavevmode
+		\begin{itemize}
+			\item \textbf{logID} \textendash{} log type to request.
+			
+			\item \textbf{port} \textendash{} port to report log.
+			
+			\item {} 
+			\sphinxstyleliteralstrong{trigger} \textendash{} trigger identifier.
+			
+			\item \textbf{period} \textendash{} the period of log.
+			
+			\item \textbf{offset} \textendash{} offset in seconds after period.
+			
+			\item \textbf{hold} \textendash{} mark log with hold flag or not.
+			
+		\end{itemize}
+		
+		\item[{Returns}] \leavevmode
+		True or false if command was sucessfull or not.
+		
+\end{description}\end{quote}
+
+The log request command is defined as:
+
+
+
+

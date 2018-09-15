@@ -107,6 +107,7 @@
   \usefont{T1}{phv}{m}{n}\fontsize{12pt}{12pt}\selectfont}
 
 
+\usepackage{bold-extra}
 % ----------------------------------------------------------------------
 % Define page margins and line spacing.
 % ----------------------------------------------------------------------
@@ -511,3 +512,8 @@
 
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \providecommand{\console}[1]{\colorbox{gray!15}{#1}}
+
+% Some custom font markup commands.
+\providecommand{\prefix}[1]{\normalfont{\texttt{#1}}}
+\providecommand{\args}[1]{\texttt{(\emph{#1})}}
+
