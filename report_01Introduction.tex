@@ -31,7 +31,8 @@ Although all the instructions are given based on Linux operating system, they sh
 \section{Guide Outline}
 \label{section:outline} 
 
-This documentation guide is organized in four main chapters, server, main sensors, controllers, miscellaneous.
+This documentation guide is organized in five main chapters, Code guidelines, server, main sensors, controllers, miscellaneous.
+In chapter code guidelines is described suggested and used assumption especially focused in code structuring and tools used in development.
 In the server is provided information about the used hardware, designed pieces, software configuration needed to get started and connections.
 In main sensors will be discussed the work done with the current available sensors. New sensor additions should be documented under this chapter.
 In controllers will be reported mainly hardware controllers and software necessary to connect, configure  or communicate with it.
@@ -53,7 +54,7 @@ During the fellowship BL43/2018, it was made the main contributions:
 	\item Identification of the function that relates the steering wheel position with angle of the front wheel in a bicycle model of the car.
 	\item Mounting of available sensors (two  \acrshort{GNSS} unities and one \acrshort{IMU} \acrshort{9DOF})
 	\item Calibration of the inertial sensor.
-	\item Updated code related with inertial sensor.
+	\item Updated code related with \acrshort{MARG} sensor.
 	\item Updated code related with \acrshort{GNSS} unities.
 \end{enumerate}
 
@@ -63,9 +64,11 @@ Although not initially planned, but because the change of hardware and/or advers
 	\item Study of interconnection of the main battery pack
 	\item Study of software used for management of main battery pack
 	\item Study of hardware necessary for management of main battery pack
-	\item Study and initial software developement  for invertor received from \acrshort{FST} (in progress)
+	\item Study and initial software development  for inverter received from \acrshort{FST}
 	\item Creation of an headless structure and an AP station based on \gls{Rpi} to communicate with vehicle
-	\item Initial development of an mqtt based design to control the vehicle or check its status. 
+	\item Initial development of an \acrshort{MQTT} based design to control the vehicle or check its status. 
+	\item Development of library to interact with Schneider Altivar 71 (abandoned due to change of inverter)
+	
 \end{enumerate}
 
 Main code contributions are available under Github repository in \url{https://github.com/brtiberio/VIENA} and will be kept up to date as soon as possible.

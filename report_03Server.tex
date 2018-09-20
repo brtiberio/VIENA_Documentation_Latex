@@ -153,19 +153,19 @@ Current raspbian kernel, automatically support the can interaction via \gls{SPI}
 	\item Install can-utils using \console{sudo apt install can-utils}
 	\item Enable MCP2515 overlay by using \console{sudo nano /boot/config.txt} and append at end:
 	\begin{lstlisting}[label={lst:boot_settings},frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,basicstyle=\ttfamily]
-		#CAN bus controllers
-		dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
-		dtoverlay=spi-bcm2835
+#CAN bus controllers
+dtoverlay=mcp2515-can0,oscillator=16000000,interrupt=25
+dtoverlay=spi-bcm2835
 \end{lstlisting}
 	\item To enable the interface at boot time, use \console{sudo nano /etc/network/interfaces} and append at end:
 	\begin{minipage}{\linewidth} % to avoid breaking on page
 \begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
-		auto can0
-		iface can0 inet manual
-		  pre-up /sbin/ip link set can0 type can bitrate 1000000 \ 
-		  triple-sampling on restart-ms 10
-		  up /sbin/ifconfig can0 up
-		  down /sbin/ifconfig can0 down
+auto can0
+iface can0 inet manual
+  pre-up /sbin/ip link set can0 type can bitrate 1000000 \
+  triple-sampling on restart-ms 10
+  up /sbin/ifconfig can0 up
+  down /sbin/ifconfig can0 down
 \end{lstlisting}
 	\end{minipage}
 \end{itemize}
@@ -329,7 +329,28 @@ iptables-restore < /etc/iptables.ipv4.nat
 \end{table}
 
 \subsection{Configure Nginx}
-\blindtext
+The configuration of nginx will be minimally changed from default values and will follow mainly \cite{raspberry_nginx}. For more advanced uses, please refer for example to \cite{nginx_digitalocean} and \cite{nginx_wiki}. The use of web server is intended for current in development branch of \gls{MQTT} web interface. A user can connect to local network of \gls{Rpi} and see current information displayed in dashboard webpage.
+
+If not already, do \console{sudo apt install nginx}. Test installation by starting the webserver with
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+systemctl status nginx.service
+sudo systemctl start nginx.service
+\end{lstlisting}
+Change user permissions for \console{/var/www/html} and clone the current repository of webpage interface using:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+# remove contents of html folder
+sudo rm -R /var/www/html/*
+# change owner of folder
+sudo chown -R pi:pi /var/www/html
+git clone https://github.com/brtiberio/VIENA_interface.git /var/www/html
+\end{lstlisting}
+Use a browser using the ip of \gls{Rpi} or the defined \hyperref[tab:suggested_config]{hostname.local} to confirm it is working (see figure \ref{fig:interface_viena}).
+\begin{figure}[!hb]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/viena_interface}
+	\caption{Current interface webpage}
+	\label{fig:interface_viena}
+\end{figure}
 
 \subsection{Configure firewall}
 First enable firewall by using \console{sudo ufw enable}. After use the following console command to enable the previously configured ports for ssh connection, mqtt connections and http server configured in nginx:
@@ -347,17 +368,36 @@ If needed, confirm status with \console{sudo ufw status}. For more advanced use 
 \section{Troubleshooting}
 
 \begin{description}[style=nextline]
-	\item [The command \console{arp -a} do not show my \gls{Rpi}] In that case, try use the \console{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!
-    %---------------------------------------------------------------------------	
-	\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \console{ifconfig}
-	%---------------------------------------------------------------------------
-	\item [\gls{CAN} seems to not be working] First see if MCP2515 is successfully connected. 
-	\begin{enumerate}
-		\item Use \console{dmesg \textbar grep mcp2515*}. If it says successfull configured, go to next step. If not, recheck connections and restart. Also make sure the oscilator frequency match the used on boot configuration file settings as seen \hyperref[lst:boot_settings]{\textcolor{cyan}{here}}.
-		\item Check if can is detected as a socketcan interface. Use \console{ifconfig}. If \gls{CAN} is available, it should show a section for can0. If not, re-check if can-utils is installed.
-		\item View details about \gls{CAN} connection. use \console{ip -details -statistics link show can0} to get more information. If current state is \console{BUS-OFF}, manually restart the \gls{CAN} by using the following:
-		\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
-		sudo ip link set can0 down
-		sudo ip link set can0 up \end{lstlisting}
-	\end{enumerate}
+\item [The command \console{arp -a} do not show my \gls{Rpi}] In that case, try use the \console{sudo nmap -sS 192.168.1.0/24}, assuming the 192.168.1.0/24 is your local network. This is a time consuming command!
+%---------------------------------------------------------------------------	
+\item [Cannot find my \gls{Rpi} IP. Is it even running?] Maybe there is some problem with boot or bad microSD reading. The easiest solution is to connect a monitor and keyboard. Check messages at boot time. If nothing seems strange, manually login and then check if ehternet connection is ok using \console{ifconfig}
+%---------------------------------------------------------------------------
+\item [\gls{CAN} seems to not be working] First see if MCP2515 is successfully connected. 
+\begin{enumerate}
+\item Use \console{dmesg \textbar grep mcp2515*}. If it says successfull configured, go to next step. If not, recheck connections and restart. Also make sure the oscilator frequency match the used on boot configuration file settings as seen \hyperref[lst:boot_settings]{\textcolor{cyan}{here}}.
+\item Check if can is detected as a socketcan interface. Use \console{ifconfig}. If \gls{CAN} is available, it should show a section for can0. If not, re-check if can-utils is installed.
+\item View details about \gls{CAN} connection. use \console{ip -details -statistics link show can0} to get more information. If current state is \console{BUS-OFF}, manually restart the \gls{CAN} by using the following:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,	basicstyle=\ttfamily]
+sudo ip link set can0 down
+sudo ip link set can0 up \end{lstlisting}
+\end{enumerate}
+%---------------------------------------------------------------------------
+\item[webpage is nginx default] Restart nginx service by using \console{sudo systemctl restart nginx.service}. If it still shows a different page, confirm the enabled sites are correct. Use:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+nano /etc/nginx/sites-enabled/default
+\end{lstlisting}
+The default values for listen setting and root should be:
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+listen 80 default_server;
+listen [::]:80 default_server;
+...
+root /var/www/html;
+
+# Add index.php to the list if you are using PHP
+index index.html index.htm index.nginx-debian.html;
+\end{lstlisting}
+If they are different, change it accordingly to meet desired configuration, by editing: \begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+sudo nano /etc/nginx/sites-available/default
+\end{lstlisting}
+If still show different then expected, try clear browser cache files.
 \end{description}

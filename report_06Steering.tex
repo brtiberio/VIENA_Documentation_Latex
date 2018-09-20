@@ -66,10 +66,47 @@ The controller available to use is the \href{https://www.maxonmotor.com/maxon/vi
 	\label{tab:maxon_led_status}
 \end{table}
 \section{Steering sensor support}
-\blindtext
+Maxon EPOS 70/10 accepts quadrature sensors to give feedback of position. The used sensor is a quadrature line driver with index (although index is disabled because its track is damaged). The sensor model is HEDR-55L2-BY09 with main characteristics shown in table \ref{tab:quad_sensor} \cite{hedr_sensor}. Table \ref{tab:quad_sensor_settings} show the required configuration to be passed to EPOS device to correctly use the steering controller. See appendix \ref{appendix:maxon} for further description.
+\begin{table}[!hb]
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Description} & \textbf{Value}\\
+		\midrule
+		Line Driver & Yes\\
+		Counts per revolution & 3600\\
+		Total number of positions & 14400\\
+		Shaft diameter & 8mm\\
+		\bottomrule
+	\end{tabular}
+	\caption{Main HEDR-55L2\_BY09 sensor characteristics}
+	\label{tab:quad_sensor}
+\end{table}
+
+\begin{table}[!hb]
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Description} & \textbf{Value}\\
+		\midrule
+		Sensor Type & 2\\
+		Pulse Number & 3600\\
+		Sensor Polarity & 0\\
+		\bottomrule
+	\end{tabular}
+	\caption{Quadrature sensor settings configured in EPOS}
+	\label{tab:quad_sensor_settings}
+\end{table}
 
 \section{Calibration process}
-\blindtext
-
+Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature as bicycle model.\cite{Snider2009} \cite{Navigation_System_Design} An simplified representation of model is present in figure \ref{fig:ackermann_steering}
+\begin{figure}[!hb]
+	\centering
+	\subcaptionbox{Four wheel representation}{\includegraphics[width=0.7\linewidth]{figures/Ackermann_steering.png}}
+	\hfill
+	\subcaptionbox{Bicycle Representation (source \cite{Snider2009})}{\includegraphics[width=0.5\linewidth]{figures/bicicle_model}}
+	\caption{Ackermann steering model simplification}
+	\label{fig:ackermann_steering}
+\end{figure}
 \section{interface library}
 \blindtext

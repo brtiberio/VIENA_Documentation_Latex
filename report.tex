@@ -182,10 +182,10 @@
 \input{report_01Introduction} 
 \clearpage
 
-\input{report_02Server} 
+\input{report_02CodeGuides}
 \clearpage
 
-\input{report_03CodeGuides}
+\input{report_03Server} 
 \clearpage
 
 \input{report_04Batteries}
@@ -263,7 +263,15 @@
 %regulations)
 % ----------------------------------------------------------------------
 \appendix
-\clearpage
+
+% add page number prefix according to apendix chapter (optional)
+\renewcommand{\thepage}{\thechapter.\arabic{page}}
+%
+% re-set arabic numbering (A.1,A.2,...) (optional, use only if chapter prefix 
+%is added)
+\setcounter{page}{1}
+\chapter{NovatelOEM4 GPS library Documentation}
+\cleardoublepage
 \pagestyle{empty}
 \newlength{\originalVOffset}
 \newlength{\originalHOffset}
@@ -272,22 +280,24 @@
 
 \setlength{\voffset}{0cm}
 \setlength{\hoffset}{0cm}
-\phantomsection
-\addcontentsline{toc}{chapter}{NovatelOEM4 GPS library Documentation}%
-\includepdf[pages=-]{appendix/novatel-oem4-python}
-\phantomsection
-\addcontentsline{toc}{chapter}{Maxon EPOS CANopen Library Documentation}%
-\includepdf[pages=-]{appendix/maxon-epos-canopen}
+\label{appendix:novatel}
+\includepdf[pages=5-16]{appendix/novatel-oem4-python}
+\cleardoublepage
+
 \setlength{\voffset}{\originalVOffset}
 \setlength{\hoffset}{\originalHOffset}
+\chapter{Maxon EPOS CANopen Library Documentation}
+\cleardoublepage
+\setlength{\voffset}{0cm}
+\setlength{\hoffset}{0cm}
+\label{appendix:maxon}
+\includepdf[pages=5-18]{appendix/maxon-epos-canopen}
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+\cleardoublepage
 
 %
-%% add page number prefix according to apendix chapter (optional)
-%%\renewcommand{\thepage}{\thechapter.\arabic{page}}
-%
-%% re-set arabic numbering (A.1,A.2,...) (optional, use only if chapter prefix 
-%%is added)
-%%\setcounter{page}{1}
+
 %
 %\input{Thesis_Appendix_A} % file "Thesis_Appendix_A.tex"
 %\cleardoublepage
