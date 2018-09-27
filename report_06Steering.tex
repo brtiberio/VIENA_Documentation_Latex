@@ -65,6 +65,8 @@ The controller available to use is the \href{https://www.maxonmotor.com/maxon/vi
 	\caption{Maxon EPOS 70/10 Led status}
 	\label{tab:maxon_led_status}
 \end{table}
+
+
 \section{Steering sensor support}
 Maxon EPOS 70/10 accepts quadrature sensors to give feedback of position. The used sensor is a quadrature line driver with index (although index is disabled because its track is damaged). The sensor model is HEDR-55L2-BY09 with main characteristics shown in table \ref{tab:quad_sensor} \cite{hedr_sensor}. Table \ref{tab:quad_sensor_settings} show the required configuration to be passed to EPOS device to correctly use the steering controller. See appendix \ref{appendix:maxon} for further description.
 \begin{table}[!hb]
@@ -99,20 +101,26 @@ Maxon EPOS 70/10 accepts quadrature sensors to give feedback of position. The us
 \end{table}
 
 \section{Sensor support parts}
-The sensor support is mainly 3D printed in ABS filament. It is composed of the following parts presented in table \ref{label}.
-A dimensional sketch of the sensor and bearing used was also designed just for design auxiliary purposes and to provide assembly instructions.
+The sensor support is mainly 3D printed in ABS filament. It is composed of the following parts presented in table \ref{tab:sensor_support_parts}.
+A dimensional sketch of the sensor and bearing used was also designed just for design auxiliary purposes and to provide assembly instructions. The drawings with respective dimensions are added in appendix 
 
 \begin{table}[!hb]
-	\begin{tabular}{ccc}
+    \centering
+	\begin{tabular}{lcc}
 		\toprule
-		\textbf{Part name} & \textbf{Quantity} & \textbf{Reference design}
+		\textbf{Part name} & \textbf{Quantity} & \textbf{Reference design}\\
 		\midrule
 		608 bearing & 1 & \hyperref[draw:bearing]{Bearing Diagram}\\
-		Sensor Case HEDR-55L2\_BY09 & 1 & \hyperref[draw:bearing]{Sensor case}\\
+		Sensor Case HEDR-55L2\_BY09 & 1 & \hyperref[draw:sensor-case]{Sensor case}\\
+        Half Gear 54 teeth & 2 & \hyperref[draw:half-gear]{Half gear}\\
+        Sensor gear 32 teeth & 1 & \hyperref[draw:sensor-gear]{Sensor gear}\\
 		\bottomrule
-		content...
 	\end{tabular}
+\caption{Sensor support parts}
+\label{tab:sensor_support_parts}
 \end{table}
+
+
 
 \section{Calibration process}
 Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature as bicycle model.\cite{Snider2009} \cite{Navigation_System_Design} An simplified representation of model is present in figure \ref{fig:ackermann_steering}

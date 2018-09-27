@@ -284,6 +284,7 @@
 \includepdf[pages=5-16]{appendix/novatel-oem4-python}
 \cleardoublepage
 
+\setcounter{page}{1}
 \setlength{\voffset}{\originalVOffset}
 \setlength{\hoffset}{\originalHOffset}
 \chapter{Maxon EPOS CANopen Library Documentation}
@@ -295,6 +296,27 @@
 \setlength{\voffset}{\originalVOffset}
 \setlength{\hoffset}{\originalHOffset}
 \cleardoublepage
+
+\setcounter{page}{1}
+\pagestyle{plain}
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+\chapter{Sensor support Drawings}
+\label{appendix:sensor_drawings}
+\pagebreak
+
+\includepdf[scale=0.75, angle=-90, pagecommand=\section{Sensor gear 32 teeth} \label{draw:sensor-gear}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-gear}
+
+\includepdf[scale=0.75, angle=-90,pagecommand=\section{Half gear 54 teeth} \label{draw:half-gear}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/half-gear}
+
+\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor back spacer} \label{draw:sensor-back}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-back}
+
+\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor bearing holder} \label{draw:sensor-bearing-holder}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-bearing-holder}
+
+\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor case} \label{draw:sensor-case}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-case}
+
+\cleardoublepage
+\pagestyle{plain}
 
 %
 

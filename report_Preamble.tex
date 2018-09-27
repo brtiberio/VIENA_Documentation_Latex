@@ -119,7 +119,8 @@
 %
 % > set the page margins (2.5cm minimum in every side, as per IST rules)
 %
-\usepackage{geometry}
+\usepackage[showframe]{geometry}   % to see failed margins
+%\usepackage{geometry}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
 
 % 'setspace' package
@@ -518,3 +519,4 @@
 \providecommand{\prefix}[1]{\normalfont{\texttt{#1}}}
 \providecommand{\args}[1]{\texttt{(\emph{#1})}}
 
+\pdfminorversion=6
