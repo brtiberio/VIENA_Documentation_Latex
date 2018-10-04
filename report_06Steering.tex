@@ -8,7 +8,7 @@ The control of steering wheel take advantage of motor for steering assist origin
 	\caption{Maxon EPOS 70/10 controller}
 	\label{fig:maxon_epos}
 \end{figure}
-The controller available to use is the \href{https://www.maxonmotor.com/maxon/view/product/control/Positionierung/300583}{Maxon EPOS 70/10}. It includes CAN network interface and a RS-232. The relevant electrical specs can be seen in table \ref{tab:epos_specs}. The full specifications as well as connections layout must be seen in \cite{epos_hardware}. The controller contains two led in a single package that is used as status reference. Table \ref{tab:maxon_led_status} present the status of device based on pattern of leds shown by it.
+The controller available to use is the \href{https://www.maxonmotor.com/maxon/view/product/control/Positionierung/300583}{Maxon EPOS 70/10}, from now on denoted as EPOS. It includes CAN network interface and a RS-232. The relevant electrical specs can be seen in table \ref{tab:epos_specs}. The full specifications as well as connections layout must be seen in \cite{epos_hardware}. The controller contains two led in a single package that is used as status reference. Table \ref{tab:maxon_led_status} present the status of device based on pattern of leds shown by it.
 
 \begin{table}[hb]
 	\centering
@@ -123,7 +123,9 @@ A dimensional sketch of the sensor and bearing used was also designed just for d
 
 
 \section{Calibration process}
-Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature as bicycle model.\cite{Snider2009} \cite{Navigation_System_Design} An simplified representation of model is present in figure \ref{fig:ackermann_steering}
+Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model.\cite{Snider2009} \cite{Navigation_System_Design} An simplified representation of model is present in figure \ref{fig:ackermann_steering}. The simplified model is normally used in control applications and expected to be used in the high level control. However, it is necessary to describe the sensor readings into angle value of fictional mid wheel. The first step is to identify the range of each physical wheels and therefore the range of fictional wheel. The other step, is done at each vehicle power up and consists in manually perform a full rotation of the steering wheel in each direction until the end is reached.
+This process will determine the power up offset, minimum and maximum quadrature counter values. These values will only change in case of shut down performed on steering controller device.
+
 \begin{figure}[!hb]
 	\centering
 	\subcaptionbox{Four wheel representation}{\includegraphics[width=0.7\linewidth]{figures/Ackermann_steering.png}}
