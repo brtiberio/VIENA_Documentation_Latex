@@ -100,9 +100,8 @@ Maxon EPOS 70/10 accepts quadrature sensors to give feedback of position. The us
 	\label{tab:quad_sensor_settings}
 \end{table}
 
-\section{Sensor support parts}
 The sensor support is mainly 3D printed in ABS filament. It is composed of the following parts presented in table \ref{tab:sensor_support_parts}.
-A dimensional sketch of the sensor and bearing used was also designed just for design auxiliary purposes and to provide assembly instructions. The drawings with respective dimensions are added in appendix 
+A dimensional sketch of the sensor and bearing used was also designed just for auxiliary purposes and to provide assembly instructions. The drawings with respective dimensions are added in appendix \ref{appendix:sensor_drawings}. The parts were designed in Autodesk Fusion 360 and are available under the Github repository
 
 \begin{table}[!hb]
     \centering
@@ -123,7 +122,7 @@ A dimensional sketch of the sensor and bearing used was also designed just for d
 
 
 \section{Calibration process}
-Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model.\cite{Snider2009} \cite{Navigation_System_Design} An simplified representation of model is present in figure \ref{fig:ackermann_steering}. The simplified model is normally used in control applications and expected to be used in the high level control. However, it is necessary to describe the sensor readings into angle value of fictional mid wheel. The first step is to identify the range of each physical wheels and therefore the range of fictional wheel. The other step, is done at each vehicle power up and consists in manually perform a full rotation of the steering wheel in each direction until the end is reached.
+Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model\cite{Snider2009} \cite{Navigation_System_Design}. A simplified representation of the model is present in figure \ref{fig:ackermann_steering}. This model is normally used in control applications and expected to be used in future high level control. As it is necessary to determine the angle of wheel with respect to body frame YY axis (recall subsection \ref{subsection:body_frame}), the first calibration process required is to determine the function relating steering wheel position and angle of fictional wheel. A set up was made fixing the car and placing a white duck tape in front of it, perpendicular as physically possible and apart by 1.47 meters in front of the car. The duck tape will serve as a ruler. In each wheel is attached a laser level, pointing to front duck tape. Several measurements are take for different steering position values and using trigonometric relations, the angles of each wheel is estimated. 
 This process will determine the power up offset, minimum and maximum quadrature counter values. These values will only change in case of shut down performed on steering controller device.
 
 \begin{figure}[!hb]
@@ -134,5 +133,65 @@ This process will determine the power up offset, minimum and maximum quadrature 
 	\caption{Ackermann steering model simplification}
 	\label{fig:ackermann_steering}
 \end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[scale=2.5]
+	\pgfmathsetmacro{\hOne}{1.47};
+	\pgfmathsetmacro{\dOne}{1.445};
+	\pgfmathsetmacro{\dL}{0.455};
+	\pgfmathsetmacro{\maxR}{2.19};
+	\pgfmathsetmacro{\maxL}{\maxR};
+	\pgfmathsetmacro{\maxRange}{\maxR+\maxL+\dL};
+	\pgfmathsetmacro{\lOne}{0.5*(\maxRange-\dL)};
+	\pgfmathsetmacro{\lTwo}{0.5*(\dOne-\dL)};
+	
+	\coordinate (origin) at (0, 0);
+	\coordinate (A) at (-\dOne/2, 0);
+	\coordinate (B) at (\dOne/2, 0);
+	\coordinate (C) at (-\dOne/2, \hOne);
+	\coordinate (D) at (\dOne/2, \hOne);
+	\coordinate (E) at (-\dOne/2 - \lOne, \hOne);
+	\coordinate (F) at (\dOne/2 + \lOne, \hOne);
+	\coordinate (zeroR) at (-\dL/2,\hOne);
+	\coordinate (zeroL) at (+\dL/2,\hOne);
+	
+	
+	\draw [Bar-Bar , ultra thick] (A)--(0,0) -- (B) node[align=center, below] at (origin) {$d1$};
+	\draw [dashed] (A) -- (C) node[below, midway, rotate=90] {$h_1$};
+	\draw [dashed] (B) -- (D);
+	\draw [dashed] (origin) -- ++(0, 6mm);
+	\draw [Bar-Bar,ultra thick] (E)--(F);
+	% add angles swipes lines
+	\draw [dashed] (A)--(E);
+	\draw [dashed] (A)--(zeroL);
+	\draw [dashed] (B)--(F);
+	\draw [dashed] (B)--(zeroR);
+	
+	% add zeroR and zeroL nodes
+	\node[mark=square, fill, label=above:$0_R$] at (zeroR) {};
+	\node[mark=square, fill, label=above:$0_L$] at (zeroL) {};
+	% add maxR and maxL nodes
+	\node[label=above:$max_R$] at (F) {};
+	\node[label=above:$max_L$] at (E) {};
+	
+	% add arcs of angles
+	\filldraw[fill=green!20,draw=green!50!black, dashed] (0,0) -- (0mm,5mm) arc (90:45+90:5mm) node[midway, above]{$\gamma$}-- (0,0);
+	
+	\filldraw[fill=cyan!20,draw=cyan!50!black, dashed] (A)--($(A)+(0mm,5mm)$) arc (90:56+90:5mm) node[midway, above]{$\beta$} -- (A);
+	
+	\filldraw[fill=red!20,draw=red!50!black, dashed] (B)--($(B)+(0mm,5mm)$) arc (90:33+90:5mm) node[midway, above]{$\alpha$}--(B);
+	
+	% add anotations
+	\draw [Bar-Bar] (-\dOne/2,\hOne+0.3) -- (-\dL/2,\hOne+0.3) node[align=center, above, midway] {$L_2$};
+	\draw [Bar-Bar] (-\dL/2,\hOne+0.3) -- (\dL/2,\hOne+0.3) node[align=center, above, midway] {$d_L$};
+	\draw [Bar-Bar] (+\dL/2,\hOne+0.3) -- (\dOne/2,\hOne+0.3) node[align=center, above, midway] {$L_2$};
+	\draw [Bar-Bar] (\dOne/2,\hOne+0.3) -- (\dOne/2 + \lOne, \hOne+0.3) node[align=center, above, midway] {$L_1$};
+	\draw [Bar-Bar] (-\dOne/2,\hOne+0.3) -- (-\dOne/2 - \lOne, \hOne+0.3) node[align=center, above, midway] {$L_1$};
+	\end{tikzpicture}
+	\caption{Calibration set up scheme}
+	\label{fig:calibration_scheme}
+\end{figure}
+
 \section{interface library}
 \blindtext
