@@ -30,7 +30,7 @@ The controller available to use is the \href{https://www.maxonmotor.com/maxon/vi
     \label{tab:epos_specs}
 \end{table}
 
-\begin{table}
+\begin{table}[!hb]
 	\centering
 	\begin{tabular}{p{0.7\textwidth}cc}
 		\toprule
@@ -123,7 +123,8 @@ A dimensional sketch of the sensor and bearing used was also designed just for a
 
 \section{Calibration process}
 Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model\cite{Snider2009} \cite{Navigation_System_Design}. A simplified representation of the model is present in figure \ref{fig:ackermann_steering}. This model is normally used in control applications and expected to be used in future high level control. As it is necessary to determine the angle of wheel with respect to body frame YY axis (recall subsection \ref{subsection:body_frame}), the first calibration process required is to determine the function relating steering wheel position and angle of fictional wheel. A set up was made fixing the car and placing a white duck tape in front of it, perpendicular as physically possible and apart by 1.47 meters in front of the car. The duck tape will serve as a ruler. In each wheel is attached a laser level, pointing to front duck tape. Several measurements are take for different steering position values and using trigonometric relations, the angles of each wheel is estimated. 
-This process will determine the power up offset, minimum and maximum quadrature counter values. These values will only change in case of shut down performed on steering controller device.
+
+The other calibration process is taken each time a power up is made. It consists in performing a full rotation of the steering wheel to each extreme points. During this movement, the program is always reading sensor position and updating the maximum and minimum value read. After these quadrature counter values are found, user is requested to end calibration and the offset are calculated and stored along with maximum and minimum position. These values will only change in case of shut down performed on steering controller device.
 
 \begin{figure}[!hb]
 	\centering
@@ -134,6 +135,7 @@ This process will determine the power up offset, minimum and maximum quadrature 
 	\label{fig:ackermann_steering}
 \end{figure}
 
+Taking figure \ref{fig:calibration_scheme} that represents the calibration set up made, the bold line between points $max_L$ and $max_R$ represent the our ruler. The $d1$ represent the distance between outer of each wheel where the lasers are attached. The relevant distances using in this step up are present in table \ref{tab:calibration_scheme}. 
 \begin{figure}
 	\centering
 	\begin{tikzpicture}[scale=2.5]
@@ -157,7 +159,7 @@ This process will determine the power up offset, minimum and maximum quadrature 
 	\coordinate (zeroL) at (+\dL/2,\hOne);
 	
 	
-	\draw [Bar-Bar , ultra thick] (A)--(0,0) -- (B) node[align=center, below] at (origin) {$d1$};
+	\draw [Bar-Bar , ultra thick] (A)--(0,0) -- (B) node[align=center, below] at (origin) {$d_1$};
 	\draw [dashed] (A) -- (C) node[below, midway, rotate=90] {$h_1$};
 	\draw [dashed] (B) -- (D);
 	\draw [dashed] (origin) -- ++(0, 6mm);
@@ -192,6 +194,25 @@ This process will determine the power up offset, minimum and maximum quadrature 
 	\caption{Calibration set up scheme}
 	\label{fig:calibration_scheme}
 \end{figure}
+
+\begin{table}[!hb]
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Description} & \textbf{Measurement [cm]}\\
+		\midrule
+		$d_1$ & 144.5\\
+		$L_1$ & \\
+		$L_2$ & \\
+		$d_L$ & 45.5\\
+		$h_1$ & 147\\
+		$max_L$ & $L_1+L_2+d_L=$ 219\\
+		$max_R$ & $L_1+L_2+d_L=$ 219\\
+		\bottomrule
+	\end{tabular}
+	\caption{Reference measurements for calibration set up scheme}
+	\label{tab:calibration_scheme}
+\end{table}
 
 \section{interface library}
 \blindtext
