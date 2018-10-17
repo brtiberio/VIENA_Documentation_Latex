@@ -1,0 +1,80 @@
+\chapter{Power Train controller}
+\blindtext
+
+\begin{table}
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameter} & \textbf{Value} & \textbf{Units}\\
+		\midrule
+		Weight & 1200 & kg\\
+		Batteries Weight & 400 & kg\\
+		Autonomy & 90 & km \\
+		Maximum speed & 100 & km/h \\
+		Acceleration (0-50km/h) & 8 & s \\
+		Wheel diameter & 60.97 & cm \\
+		Width & 150.8 & cm \\
+		Height & 144.5 & cm \\
+		Area & 2.18 & $\text{m}^2$ \\
+		Drag Coefficient & 0.33 & - \\
+		\bottomrule
+	\end{tabular}
+	\caption{Original car parameters}
+	\label{tab:car_parameters}
+\end{table}
+
+
+
+\section{Motor data}
+
+\blindtext
+
+\begin{table}
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameter} & \textbf{Value} & \textbf{Units}\\
+		\midrule
+		Maximum Power & 30 & kW\\  
+		Maximum Torque & 130 & Nm \\
+		Maximum speed & 10000 & rpm \\
+		Weight & 41.5 & kg \\
+		\midrule
+		\multicolumn{3}{c}{\textbf{Equivalent circuit parameters}}\\
+		\midrule
+		stator resistance & 8.56 & mOhms \\
+		stator leakage inductance & 0.06292 & mH \\
+		Iron Resistance & $\infty$ & mOhms\\
+		Mutual Inductance & 1.0122 & mH \\
+		rotor resistance & 5.10 & mOhms \\
+		rotor leakage inductance & 0.06709 & mH \\
+		\bottomrule
+	\end{tabular}
+	\caption{Motor parameters}
+	\label{tab:motor_parameters}
+\end{table}
+
+Motor Equivalent Circuit Parameters. (Data from inverter SIEMENS SINAMICS using STARTER. for other Data, check below in Annex ).
+Motor Nameplate Data
+
+\begin{table}
+	\centering
+	\begin{tabular}{ccccc}
+		\toprule
+		\textbf{U (V)} & \textbf{f (Hz)} & \textbf{I (A)} & \textbf{Torque (Nm)} & \textbf{Speed (rpm)} \\
+		\midrule
+		76 & 76 & 157 & 65 & 2200 \\
+		121 & 220 & 90 & 22 & 6500 \\
+		121 & 305 & 88 & 16 & 9000 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Motor Nameplate parameters}
+\label{tab:motor_nameplate_data}
+\end{table}
+
+
+
+\section{Siemens Sinamics}
+
+\blindtext
+

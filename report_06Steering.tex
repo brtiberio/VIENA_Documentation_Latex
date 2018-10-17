@@ -135,7 +135,7 @@ The other calibration process is taken each time a power up is made. It consists
 	\label{fig:ackermann_steering}
 \end{figure}
 
-Taking figure \ref{fig:calibration_scheme} that represents the calibration set up made, the bold line between points $max_L$ and $max_R$ represent the our ruler. The $d1$ represent the distance between outer of each wheel where the lasers are attached. The relevant distances using in this step up are present in table \ref{tab:calibration_scheme}. 
+Taking figure \ref{fig:calibration_scheme} that represents the calibration set up made, the bold line between points $max_L$ and $max_R$ represent the our ruler. The $d1$ represent the distance between outer of each wheel where the lasers are attached. The relevant distances using in this step up are present in table \ref{tab:calibration_scheme}.
 \begin{figure}
 	\centering
 	\begin{tikzpicture}[scale=2.5]
@@ -202,8 +202,8 @@ Taking figure \ref{fig:calibration_scheme} that represents the calibration set u
 		\textbf{Description} & \textbf{Measurement [cm]}\\
 		\midrule
 		$d_1$ & 144.5\\
-		$L_1$ & \\
-		$L_2$ & \\
+		$L_1$ & 124\\
+		$L_2$ & 49.5\\
 		$d_L$ & 45.5\\
 		$h_1$ & 147\\
 		$max_L$ & $L_1+L_2+d_L=$ 219\\
@@ -213,6 +213,31 @@ Taking figure \ref{fig:calibration_scheme} that represents the calibration set u
 	\caption{Reference measurements for calibration set up scheme}
 	\label{tab:calibration_scheme}
 \end{table}
+
+Comparing figure \ref{fig:ackermann_steering} with figure \ref{fig:calibration_scheme} results in \eqref{eq:steeting_cal}. Then is assumed that:
+\begin{itemize}
+	\tightlist
+	\item $\gamma$ must be a first order function.
+	\item $\delta \gamma$ must be always great or equal to zero and therefore, quadratic.
+	\item $\beta$ and $\alpha$ should be, at least a second order function with opposite concavities orientation.
+\end{itemize}
+
+\begin{equation}
+\centering
+\left \lbrace \begin{aligned}
+\beta &= \gamma + \delta \gamma\\
+\alpha&= \gamma - \delta \gamma
+\end{aligned}
+\right.
+\label{eq:steeting_cal}
+\end{equation}
+
+\begin{figure}[!hb]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/Steering_calibration_results.eps}
+	\caption{Results for Calibration of steering wheel}
+	\label{fig:calibration_results}
+\end{figure}
 
 \section{interface library}
 \blindtext

@@ -237,11 +237,12 @@ After adding user to any group, \textbf{a logout must be performed to changes ta
 % installing mosquitto
 %-------------------------------------------------------------------------------
 \subsection{Configuring MQTT Broker}
-Current and planned development roadmap use MQTT brocker to change messages between user or high level software and hardware interface. It is also used websockets and in this section will be shown how to enable it. The currently  broker is \href{https://mosquitto.org/}{mosquitto}. If not already installed, use:\\ \console{sudo apt install mosquitto} \\
-After installation edit mosquitto.conf by using \console{sudo nano /etc/mosquitto/mosquitto.conf} and add an additional port for websockets protocol. If advanced configuration is need refer to \cite{mosquitto_conf}.
+Current and planned development roadmap use \gls{MQTT} brocker to change messages between user or high level software and hardware interface. It is also used websockets and in this section will be shown how to enable it. The current used broker is \href{https://mosquitto.org/}{mosquitto}. If not already installed, use:\\ \console{sudo apt install mosquitto} \\
+After installation edit mosquitto.conf by using \console{sudo nano /etc/mosquitto/mosquitto.conf} and add an additional port for websockets protocol. If advanced configuration is need refer to \cite{mosquitto_conf}. In order to use mosquitto with \gls{QoS} of 1 or 2 and accept large queues, it was increase maximum queued messages to 10000. Also, since it is not required, persistence file was disabled.
+
 \begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
 pid_file /var/run/mosquitto.pid
-persistence true
+persistence false
 persistence_location /var/lib/mosquitto/
 
 log_dest file /var/log/mosquitto/mosquitto.log
@@ -251,10 +252,87 @@ include_dir /etc/mosquitto/conf.d
 port 1883
 listener 8080
 protocol websockets
+
+# max_inflight_messages 0
+max_queued_messages 10000 
 \end{lstlisting}
 
+Since official repository did not have the latest release of mosquitto, it was necessary to
+manually update it using:
+
+\begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
+wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+sudo apt-key add mosquitto-repo.gpg.key
+cd /etc/apt/sources.list.d/
+sudo wget http://repo.mosquitto.org/debian/mosquitto-stretch.list
+sudo apt update
+sudo apt upgrade
+\end{lstlisting}
+
+In order to discuss future implementations it was tested the ability of using the \gls{MQTT} interface for fast rate messages. For that, in table \ref{tab:mqtt_results} are shown different approaches using local vs online brokers and implementation on \gls{Rpi} vs local laptop (Lenovo T480).
+
+As summary, test conditions are as follow:
+\begin{itemize}
+	\tightlist
+	\item 1000 messages sent, using an Int32 with the number of message as payload.
+	\item Same \gls{QoS} in both ends.
+	\item Using same PC to run the sender and receiver clients (Lenovo T480)
+	\item Comparison between local MQTT broker (mosquitto), running in RaspberryPI 3 and Laptop, as well as online servers.
+	\item Mean of 5 consecutive tests.
+	\item Transport used is websockets in both clients.
+\end{itemize}
+
+\begin{table}
+	\centering
+	\begin{tabular}{lccrrrr}
+		\toprule
+		\multicolumn{7}{c}{\textbf{Receiving Results}}\\
+		\textbf{Server} & \textbf{Is local?} & \textbf{QoS} & \textbf{Mean} & \textbf{std} & \textbf{min.} & \textbf{max.}\\
+		\toprule
+		mosquitto         & Yes     &0    & 9754.14        &1735.97 &7316.35 &11653.73  \\
+		mosquitto         & Yes     &1    & 4917.01        &172.89  &4680.69 & 5125.19  \\
+		mosquitto         & Yes     &2    & 3663.86        &234.97  &3339.15 & 3999.98  \\
+		\midrule
+		mosquitto (Rpi)   & Yes     &0    & 820.48         &36.45   &781.01  & 860.08   \\
+		mosquitto (Rpi)   & Yes     &1    & 780.07         &73.96   &650.22  & 835.46   \\
+		mosquitto (Rpi)   & Yes     &2    & 390.70         &30.80   &356.01  & 426.96   \\
+		\midrule
+		mosquitto.org     & No      &0    & 103.71         & 4.47   & 96.85  & 108.64   \\
+		mosquitto.org     & No      &1    & 107.87         & 9.85   & 90.55  & 113.12   \\
+		mosquitto.org     & No      &2    & 57.69          & 0.65   & 56.89  & 58.44    \\
+		\midrule
+		broker.hivemq.com & No      &0    & 3209.51        & 2631.14& 555.91 & 6589.80  \\
+		broker.hivemq.com & No      &1    & 4917.01        &172.89  &4680.69 & 5125.19  \\
+		broker.hivemq.com & No      &2    & 3663.86        &234.97  &3339.15 & 3999.98  \\
+		\toprule
+		\multicolumn{7}{c}{\textbf{Transmitting Results}}\\
+		\textbf{Server} & \textbf{Is local?} & \textbf{QoS} & \textbf{Mean} & \textbf{std} & \textbf{min.} & \textbf{max.}\\
+		\toprule
+		mosquitto         & Yes     &0    & 20855.58          &6606.65 &13611.86  &29385.87  \\
+		mosquitto         & Yes     &1    & 6370.67           &343.24  &5797.45   &6627.05   \\
+		mosquitto         & Yes     &2    & 4653.94           &189.67  &4374.28   &4883.84   \\
+		\midrule
+		mosquitto (Rpi)   & Yes     &0    & 5969.37           &570.65  &5100.85   &6436.20   \\
+		mosquitto (Rpi)   & Yes     &1    & 818.21            &25.51   &784.16    &850.88    \\
+		mosquitto (Rpi)   & Yes     &2    & 409.12            &22.39   &372.51    &430.22    \\
+		\midrule
+		mosquitto.org     & No      &0    & 6863.24           &1031.36 &5768.09   &8451.10   \\
+		mosquitto.org     & No      &1    & 106.53            & 8.66   &  91.23   & 111.90   \\
+		mosquitto.org     & No      &2    & 57.64             & 0.59   &  56.92   & 58.43    \\
+		\midrule
+		broker.hivemq.com & No      &0    & 6382.99           &905.09  & 4832.09  & 7004.41  \\
+		broker.hivemq.com & No      &1    & 6370.67           &343.24  & 5797.45  & 6627.05  \\
+		broker.hivemq.com & No      &2    & 4653.94           &189.67  & 4374.28  & 4883.84  \\
+		\bottomrule
+	\end{tabular}
+	\caption{Benchmark results for MQTT}
+	\label{tab:mqtt_results}
+\end{table}
+
+Scripts used for testing can be seen in \href{https://github.com/VIENA-IST/HighLevelCommBenchMarks}{VIENA-IST/HighLevelCommBenchMarks repository}.
+
 \subsection{Configuring Rpi as AP}
-While in development user is advised to use ehternet connection between developement PC and \gls{Rpi}, it is useful to configure \gls{Rpi} as an \gls{AP} so users can connect to it using wifi in field environment. Here will be assumed that internet connection is provided via ethernet cable during development phase, for example via host PC, and during normal operation \gls{Rpi} will not be connected to internet. This section follows the main instructions given in \cite{raspberry_AP}.
+While in development user is advised to use ethernet connection between development PC and \gls{Rpi}, it is useful to configure \gls{Rpi} as an \gls{AP} so users can connect to it using wifi in field environment. Here will be assumed that internet connection is provided via ethernet cable during development phase, for example via host PC, and during normal operation \gls{Rpi} will not be connected to internet. This section follows the main instructions given in \cite{raspberry_AP}.
 \begin{itemize}
 	\tightlist
 	\item Turn off hostapd and dnsmasq. Perform this using systemctl with:
