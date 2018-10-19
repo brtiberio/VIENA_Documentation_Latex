@@ -1,7 +1,14 @@
 \chapter{Main Server configuration}
 \label{chapter:server}
 
-In order to control the current features already developed and used in the car it is used a \href{https://www.raspberrypi.org/products/}{Raspberry PI} (currently version 3 model B). The \acrlong{Rpi}, from now on denoted as \acrshort{Rpi}, is a \gls{SBC} affordable and low power, widely used among community and developed by Raspberry Pi Foundation.
+In order to control the current features already developed and used in the car it is used a \href{https://www.raspberrypi.org/products/}{Raspberry PI} (currently version 3 model B). The \acrlong{Rpi}, from now on denoted as \acrshort{Rpi}, is a \gls{SBC} affordable and low power, widely used among community and developed by Raspberry Pi Foundation. Figure \ref{fig:raspberrypi_pinout} show the relevant parts of \gls{Rpi} and also the pinout labels.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/raspberry_pi_circuit_note_fig2}
+	\caption[Pinout labels for RaspberryPi 3]{Pinout labels for RaspberryPi 3 (\href{https://www.jameco.com/Jameco/workshop/circuitnotes/raspberry-pi-circuit-note.html}{source})}
+	\label{fig:raspberrypi_pinout}
+\end{figure}
 
 \section{Requirements}
 For using the \gls{SBC} it is required the following hardware:
@@ -63,6 +70,7 @@ The next step is to find the ip address of the \gls{Rpi}. For example, in linux 
 
 Perform the first login with using the default login details as shown in table \ref{tab:default_login}.
 Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be performed using \console{ssh pi@\textless ip-of-Rpi\textgreater} command and entering the default password.
+
 \begin{table}[h]
 	\centering
 	\begin{tabular}{rl}
@@ -75,9 +83,9 @@ Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be per
 	\label{tab:default_login}
 \end{table}
 
-\begin{figure}[hb]
+\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/ssh_sucessfull.png}
+	\includegraphics[trim={0 3cm 0 0}, clip, width=0.5\textwidth]{figures/ssh_sucessfull.png}
 	\caption{SSH sucessfull login}
 	\label{fig:ssh_successfull}
 \end{figure}
@@ -89,12 +97,14 @@ Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be per
 If the user as been granted with permission to login, the next steps are used to perform a few tweaks.
 To do that user must use the command \console{sudo raspi-config}. Example output is seen in figure \ref{fig:raspi_config}.
 
-\begin{figure}[hb]
+\begin{figure}[!hb]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/raspi-config}
 	\caption{Raspi-config example output}
 	\label{fig:raspi_config}
 \end{figure}
+
+It is recommended to configure the following:
 
 \begin{itemize}
 	\tightlist
@@ -103,13 +113,15 @@ To do that user must use the command \console{sudo raspi-config}. Example output
 	\item Set Timezone
 	\item Set language [optional]
 	\item Change default login password
-	\item Configure Wifi-zone [if present]
+	\item Configure Wifi-zone [if present]\\
+	\colorbox{red!15}{If you are connected directly to a switch via Ethernet cable, skip wifi configuration.}
 	\item Enable \gls{SPI} for \gls{CAN} controller
 	\item Enable \gls{I2C} for RTC
 	\item Set hostname
 	\item change default password
 	\item change memory for GPU
 \end{itemize}
+
 
 
 
@@ -171,8 +183,14 @@ iface can0 inet manual
 \end{itemize}
 This will enable the \gls{CAN} interface at boot time with the setting present in table \ref{tab:can_settings}.
 
+\begin{figure}[!hb]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/protoschematic}
+	\caption{CAN protoboard schematic}
+	\label{fig:schematic_proto_can}
+\end{figure}
 
-\begin{figure}[hb]
+\begin{figure}[!h]
 	\begin{minipage}{0.49\linewidth}
 		\centering
 		\includegraphics[width=1\linewidth]{figures/proto_can}
@@ -196,13 +214,16 @@ This will enable the \gls{CAN} interface at boot time with the setting present i
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[!hb]
-	\centering
-	\includegraphics[width=0.9\linewidth]{figures/protoschematic}
-	\caption{CAN protoboard schematic}
-	\label{fig:schematic_proto_can}
-\end{figure}
+The protoboard is considered temporary and new board as been designed and projected to include not only a \gls{CAN} controller but also a \gls{RTC} chip, a battery holder for \gls{RTC} chip and a DC-DC converter to power \gls{Rpi} from 12V battery pack. In figure \ref{fig:board_can} is show the proposed and developed circuit for replacing the protoboard. The respective schematic is present in appendix \ref{appendix:can_schematics}. Suggested board was designed in Eagle Software and files are also included in the Github repository.
 
+For connecting the protoboard please refer to figure \ref{fig:raspberrypi_pinout} to see the respective pins in the \gls{Rpi} side.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/Viena_Rpi_CAN_interface_board}
+	\caption{Proposed CAN interface board for future use}
+	\label{fig:board_can}
+\end{figure}
 
 
 %-------------------------------------------------------------------------------
@@ -224,7 +245,7 @@ The following list describes additional package installation that are currently 
 \end{description}
 
 \section{Post-Installation Procedures}
-After installing the recommend packages, user should perform several configurations. In this section is described each of them.
+After installing the recommended packages, user should perform several configurations. In this section is described each of them.
 
 \subsection{Adding user to groups}
 After adding user to any group, \textbf{a logout must be performed to changes take effect}. Changes can be confirmed by using the command \console{groups} that prints the groups current user is in.
@@ -332,6 +353,8 @@ As summary, test conditions are as follow:
 Scripts used for testing can be seen in \href{https://github.com/VIENA-IST/HighLevelCommBenchMarks}{VIENA-IST/HighLevelCommBenchMarks repository}.
 
 \subsection{Configuring Rpi as AP}
+\colorbox{red!15}{Use only if necessary and not working with an external router}
+
 While in development user is advised to use ethernet connection between development PC and \gls{Rpi}, it is useful to configure \gls{Rpi} as an \gls{AP} so users can connect to it using wifi in field environment. Here will be assumed that internet connection is provided via ethernet cable during development phase, for example via host PC, and during normal operation \gls{Rpi} will not be connected to internet. This section follows the main instructions given in \cite{raspberry_AP}.
 \begin{itemize}
 	\tightlist
@@ -394,7 +417,7 @@ iptables-restore < /etc/iptables.ipv4.nat
 \item Reboot. After it user should be able to connect to configured network and current user authentication settings.
 \end{itemize}
 
-\begin{table}[hb]
+\begin{table}[h]
 	\centering
 	\begin{tabular}{rl}
 		\toprule
@@ -414,14 +437,13 @@ If not already, do \console{sudo apt install nginx}. Test installation by starti
 systemctl status nginx.service
 sudo systemctl start nginx.service
 \end{lstlisting}
-Change user permissions for \console{/var/www/html} and clone the current repository of webpage interface using:
+Change user permissions for \console{/var/www/html} and clone the current repository of webpage interface using the following commands:
 \begin{lstlisting}[frame=none,language=bash,backgroundcolor=\color{gray!15},numbers=none,		basicstyle=\ttfamily]
-# remove contents of html folder
 sudo rm -R /var/www/html/*
-# change owner of folder
 sudo chown -R pi:pi /var/www/html
 git clone https://github.com/brtiberio/VIENA_interface.git /var/www/html
 \end{lstlisting}
+
 Use a browser using the ip of \gls{Rpi} or the defined \hyperref[tab:suggested_config]{hostname.local} to confirm it is working (see figure \ref{fig:interface_viena}).
 \begin{figure}[!hb]
 	\centering

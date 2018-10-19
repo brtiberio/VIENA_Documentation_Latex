@@ -272,58 +272,8 @@
 %
 % re-set arabic numbering (A.1,A.2,...) (optional, use only if chapter prefix 
 %is added)
-\setcounter{page}{1}
-\chapter{NovatelOEM4 GPS library Documentation}
-\cleardoublepage
-\pagestyle{empty}
-\newlength{\originalVOffset}
-\newlength{\originalHOffset}
-\setlength{\originalVOffset}{\voffset}   
-\setlength{\originalHOffset}{\hoffset}
 
-\setlength{\voffset}{0cm}
-\setlength{\hoffset}{0cm}
-\label{appendix:novatel}
-\includepdf[pages=5-16]{appendix/novatel-oem4-python}
-\cleardoublepage
-
-\setcounter{page}{1}
-\setlength{\voffset}{\originalVOffset}
-\setlength{\hoffset}{\originalHOffset}
-\chapter{Maxon EPOS CANopen Library Documentation}
-\cleardoublepage
-\setlength{\voffset}{0cm}
-\setlength{\hoffset}{0cm}
-\label{appendix:maxon}
-\includepdf[pages=5-18]{appendix/maxon-epos-canopen}
-\setlength{\voffset}{\originalVOffset}
-\setlength{\hoffset}{\originalHOffset}
-\cleardoublepage
-
-\setcounter{page}{1}
-\pagestyle{plain}
-\setlength{\voffset}{\originalVOffset}
-\setlength{\hoffset}{\originalHOffset}
-\chapter{Sensor support Drawings}
-\label{appendix:sensor_drawings}
-\pagebreak
-
-\includepdf[scale=0.75, angle=-90, pagecommand=\section{Sensor gear 32 teeth} \label{draw:sensor-gear}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-gear}
-
-\includepdf[scale=0.75, angle=-90,pagecommand=\section{Half gear 54 teeth} \label{draw:half-gear}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/half-gear}
-
-\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor back spacer} \label{draw:sensor-back}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-back}
-
-\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor bearing holder} \label{draw:sensor-bearing-holder}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-bearing-holder}
-
-\includepdf[scale=0.75, angle=-90,pagecommand=\section{Sensor case} \label{draw:sensor-case}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-case}
-
-\includepdf[scale=0.75, angle=-90,pagecommand=\section{Bearing} \label{draw:bearing}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/bearing-608zz}
-
-\cleardoublepage
-\pagestyle{plain}
-
-
+\include{report_appendix}
 
 % ----------------------------------------------------------------------
 \end{document}
