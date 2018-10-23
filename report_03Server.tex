@@ -114,7 +114,9 @@ It is recommended to configure the following:
 	\item Set language [optional]
 	\item Change default login password
 	\item Configure Wifi-zone [if present]\\
-	\colorbox{red!15}{If you are connected directly to a switch via Ethernet cable, skip wifi configuration.}
+    \begin{mdframed}[backgroundcolor=red!20, roundcorner=10pt, innertopmargin=5pt, innerbottommargin=5pt, skipabove=0pt]
+        If you are connected directly to a switch via Ethernet cable, skip wifi configuration.
+    \end{mdframed}
 	\item Enable \gls{SPI} for \gls{CAN} controller
 	\item Enable \gls{I2C} for RTC
 	\item Set hostname
@@ -353,7 +355,10 @@ As summary, test conditions are as follow:
 Scripts used for testing can be seen in \href{https://github.com/VIENA-IST/HighLevelCommBenchMarks}{VIENA-IST/HighLevelCommBenchMarks repository}.
 
 \subsection{Configuring Rpi as AP}
-\colorbox{red!15}{Use only if necessary and not working with an external router}
+
+\begin{mdframed}[backgroundcolor=red!20, roundcorner=10pt, innertopmargin=5pt, innerbottommargin=5pt, skipabove=0pt]
+    Use only if necessary and not working with an external router.
+\end{mdframed}
 
 While in development user is advised to use ethernet connection between development PC and \gls{Rpi}, it is useful to configure \gls{Rpi} as an \gls{AP} so users can connect to it using wifi in field environment. Here will be assumed that internet connection is provided via ethernet cable during development phase, for example via host PC, and during normal operation \gls{Rpi} will not be connected to internet. This section follows the main instructions given in \cite{raspberry_AP}.
 \begin{itemize}

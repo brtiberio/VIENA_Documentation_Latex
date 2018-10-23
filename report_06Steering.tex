@@ -258,11 +258,14 @@ The developed interface library for \gls{EPOS} is present in the same Github rep
 
 
 \section{Support and controller advices}
-\begin{mdframed}[backgroundcolor=red!20, roundcorner=10pt]
-	 Danger
+\begin{mdframed}[backgroundcolor=red!20, roundcorner=10pt, innertopmargin=5pt, innerbottommargin=5pt, skipabove=0pt]
+	 \Warning \, \textbf{Caution!}
 \end{mdframed}
 Since the sensor support is 3D printed, care must be taken to avoid abrupt variations of the steering wheel or the sensor gear might brake. User must also be careful to not apply achieve or surpass the extreme positions because it may cause damage to either the structure of car or the motor it self.
 
-The \gls{EPOS} contains built-in function that disables the operation if difference between the demanded position and current position grows or is higher beyond the predefined maximum following error parameter. These situation can be caused by a badly conditioned reference, if the motor is blocked or if the motor is not able to keep up with the rate of variation requested. A careful reference trajectory generation must be provided by user to avoid damage. During the testing of vehicle in field and development, a series of functions have been developed that can serve as inspiration for future implementations. They are presented in appendix \ref{appendix:steering_auxiliar_class} in the form of a Python class.
+The \gls{EPOS} contains built-in function that disables the operation if difference between the demanded position and current position grows or is higher beyond the predefined maximum following error parameter. These situation can be caused by a badly conditioned reference, if the motor is blocked or if the motor is not able to keep up with the rate of variation requested. A careful reference trajectory generation must be provided by user to avoid damage. During the testing of vehicle in field and development, a series of functions have been developed that can serve as inspiration for future implementations. They are presented in appendix \ref{appendix:steering_auxiliar_class} in the form of a Python class. It may serve as future inspiration for high level design. It contains the following list of base functions:
+\begin{description}[align=left, labelwidth=10em, leftmargin=5em, style=nextline]
+    \item [getQcPosition] test
+\end{description}
 
  

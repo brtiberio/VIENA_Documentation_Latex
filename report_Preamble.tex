@@ -520,5 +520,9 @@
 \providecommand{\args}[1]{\texttt{(\emph{#1})}}
 
 \pdfminorversion=6
+\providecommand{\Warning}{%
+    \makebox[1.4em][c]{%
+        \makebox[0pt][c]{\raisebox{.1em}{\small!}}%
+        \makebox[0pt][c]{\color{red}\Large$\bigtriangleup$}}}%
 
 \usepackage[framemethod=TikZ]{mdframed}
