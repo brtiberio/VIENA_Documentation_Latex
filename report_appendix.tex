@@ -79,3 +79,15 @@
 \pagebreak
 
 \includepdf[scale=0.9, landscape=true]{appendix/Viena_Rpi_CAN_interface.pdf}
+%------------------------------------------------------------------------
+% add calibration script as appendix
+%------------------------------------------------------------------------
+\setcounter{page}{1}
+\pagestyle{plain}
+\chapter{Calibration script}
+\label{appendix:calibration_script}
+\lstinputlisting[language=Octave, 
+				frame=None, 
+				basicstyle=\small\ttfamily, 
+				commentstyle=\color{greenmat},
+				keywordstyle=\color{bluemat}]{appendix/find_calibration_parameters.m}

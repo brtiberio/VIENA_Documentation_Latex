@@ -9,6 +9,7 @@ The control of steering wheel take advantage of motor for steering assist origin
 	\label{fig:maxon_epos}
 \end{figure}
 The controller available to use is the \href{https://www.maxonmotor.com/maxon/view/product/control/Positionierung/300583}{Maxon EPOS 70/10}, from now on denoted as EPOS. It includes CAN network interface and a RS-232. The relevant electrical specs can be seen in table \ref{tab:epos_specs}. The full specifications as well as connections layout must be seen in \cite{epos_hardware}. The controller contains two led in a single package that is used as status reference. Table \ref{tab:maxon_led_status} present the status of device based on pattern of leds shown by it.
+The \gls{EPOS} will be used as a \gls{PID} controller for the steering wheel.
 
 \begin{table}[hb]
 	\centering
@@ -120,23 +121,22 @@ A dimensional sketch of the sensor and bearing used was also designed just for a
 \end{table}
 
 
-
 \section{Calibration process}
 Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model\cite{Snider2009} \cite{Navigation_System_Design}. A simplified representation of the model is present in figure \ref{fig:ackermann_steering}. This model is normally used in control applications and expected to be used in future high level control. As it is necessary to determine the angle of wheel with respect to body frame YY axis (recall subsection \ref{subsection:body_frame}), the first calibration process required is to determine the function relating steering wheel position and angle of fictional wheel. A set up was made fixing the car and placing a white duck tape in front of it, perpendicular as physically possible and apart by 1.47 meters in front of the car. The duck tape will serve as a ruler. In each wheel is attached a laser level, pointing to front duck tape. Several measurements are take for different steering position values and using trigonometric relations, the angles of each wheel is estimated. 
 
 The other calibration process is taken each time a power up is made. It consists in performing a full rotation of the steering wheel to each extreme points. During this movement, the program is always reading sensor position and updating the maximum and minimum value read. After these quadrature counter values are found, user is requested to end calibration and the offset are calculated and stored along with maximum and minimum position. These values will only change in case of shut down performed on steering controller device.
 
-\begin{figure}[!hb]
+\begin{figure}[]
 	\centering
 	\subcaptionbox{Four wheel representation}{\includegraphics[width=0.7\linewidth]{figures/Ackermann_steering.png}}
 	\hfill
-	\subcaptionbox{Bicycle Representation (source \cite{Snider2009})}{\includegraphics[width=0.5\linewidth]{figures/bicicle_model}}
+	\subcaptionbox{Bicycle Representation (source \cite{Snider2009})}{\includegraphics[width=0.5\linewidth]{figures/bicycle_model}}
 	\caption{Ackermann steering model simplification}
 	\label{fig:ackermann_steering}
 \end{figure}
 
 Taking figure \ref{fig:calibration_scheme} that represents the calibration set up made, the bold line between points $max_L$ and $max_R$ represent the our ruler. The $d1$ represent the distance between outer of each wheel where the lasers are attached. The relevant distances using in this step up are present in table \ref{tab:calibration_scheme}.
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\begin{tikzpicture}[scale=2.5]
 	\pgfmathsetmacro{\hOne}{1.47};
@@ -222,6 +222,7 @@ Comparing figure \ref{fig:ackermann_steering} with figure \ref{fig:calibration_s
 	\item $\beta$ and $\alpha$ should be, at least a second order function with opposite concavities orientation.
 \end{itemize}
 
+
 \begin{equation}
 \centering
 \left \lbrace \begin{aligned}
@@ -232,6 +233,12 @@ Comparing figure \ref{fig:ackermann_steering} with figure \ref{fig:calibration_s
 \label{eq:steeting_cal}
 \end{equation}
 
+Taking several measurements for different values of quadrature counters, is calculated the respective values of $\alpha$ and $\beta$. After, for each of those pairs is calculated the estimated values of $\delta \gamma$ and $\gamma$. Using least squares approach (\gls{polyfit} from Matlab\textregistered) is estimated the best fitting for each variable with respect to \gls{qc}, assuming the discussed points above. The result of fitting is shown in figure \ref{fig:calibration_results}. It shows the evaluated values of fitted functions in the range of -40000 to 40000 \gls{qc}. Note the fact that zero value is slightly apart to the right. This is a normal consequence of small misalignment (approximate 1\degree) of wheels when the \gls{EPOS} device is initialized, which is assumed the zero of it. This reflects the requirement to perform the full rotation to each side after device power up, to find the offset at origin.
+
+The estimated ration between steering wheel \gls{qc} and the fictional wheel of bicycle model is then $-7.5014E-04$, translating in the equation \eqref{eq:qc_to_angle}, where the offset is determined at each power up calibration step. 
+
+The Matlab\texttrademark used for calibration is present in appendix \ref{appendix:calibration_script}
+
 \begin{figure}[!hb]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/Steering_calibration_results.eps}
@@ -239,5 +246,23 @@ Comparing figure \ref{fig:ackermann_steering} with figure \ref{fig:calibration_s
 	\label{fig:calibration_results}
 \end{figure}
 
+\begin{equation}
+f(qc) = -7.5014E-04 \times qc + offset
+\label{eq:qc_to_angle}
+\end{equation}
+
+
 \section{interface library}
-\blindtext
+
+The developed interface library for \gls{EPOS} is present in the same Github repository. The library is made in python language and using the CAN interface to interact with \gls{EPOS}. User should note that the library still not cover all the possible interactions and modes of operation of \gls{EPOS}. It is only designed for position control mode. In the same repository are the firmware manual provided by Maxon and they should be consulted for further information. The respective documentation of the library is present on online version \href{https://maxon-epos-canopen.readthedocs.io/en/latest/}{here} and also as appendix \ref{appendix:maxon}. User should always prefer the online documentation to grant is the most updated version.
+
+
+\section{Support and controller advices}
+\begin{mdframed}[backgroundcolor=red!20, roundcorner=10pt]
+	 Danger
+\end{mdframed}
+Since the sensor support is 3D printed, care must be taken to avoid abrupt variations of the steering wheel or the sensor gear might brake. User must also be careful to not apply achieve or surpass the extreme positions because it may cause damage to either the structure of car or the motor it self.
+
+The \gls{EPOS} contains built-in function that disables the operation if difference between the demanded position and current position grows or is higher beyond the predefined maximum following error parameter. These situation can be caused by a badly conditioned reference, if the motor is blocked or if the motor is not able to keep up with the rate of variation requested. A careful reference trajectory generation must be provided by user to avoid damage. During the testing of vehicle in field and development, a series of functions have been developed that can serve as inspiration for future implementations. They are presented in appendix \ref{appendix:steering_auxiliar_class} in the form of a Python class.
+
+ 
