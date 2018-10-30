@@ -3,7 +3,7 @@
 
 In order to control the current features already developed and used in the car it is used a \href{https://www.raspberrypi.org/products/}{Raspberry PI} (currently version 3 model B). The \acrlong{Rpi}, from now on denoted as \acrshort{Rpi}, is a \gls{SBC} affordable and low power, widely used among community and developed by Raspberry Pi Foundation. Figure \ref{fig:raspberrypi_pinout} show the relevant parts of \gls{Rpi} and also the pinout labels.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/raspberry_pi_circuit_note_fig2}
 	\caption[Pinout labels for RaspberryPi 3]{Pinout labels for RaspberryPi 3 (\href{https://www.jameco.com/Jameco/workshop/circuitnotes/raspberry-pi-circuit-note.html}{source})}
@@ -71,7 +71,7 @@ The next step is to find the ip address of the \gls{Rpi}. For example, in linux 
 Perform the first login with using the default login details as shown in table \ref{tab:default_login}.
 Using the discovered ip for the \gls{Rpi}, in Linux, the first login  may be performed using \console{ssh pi@\textless ip-of-Rpi\textgreater} command and entering the default password.
 
-\begin{table}[h]
+\begin{table}[!h]
 	\centering
 	\begin{tabular}{rl}
 		\toprule
@@ -123,9 +123,6 @@ It is recommended to configure the following:
 	\item change default password
 	\item change memory for GPU
 \end{itemize}
-
-
-
 
 The current settings are presented in table \ref{tab:suggested_config}. 
 
@@ -220,7 +217,7 @@ The protoboard is considered temporary and new board as been designed and projec
 
 For connecting the protoboard please refer to figure \ref{fig:raspberrypi_pinout} to see the respective pins in the \gls{Rpi} side.
 
-\begin{figure}[!h]
+\begin{figure}[!hb]
 	\centering
 	\includegraphics[width=0.6\linewidth]{figures/Viena_Rpi_CAN_interface_board}
 	\caption{Proposed CAN interface board for future use}

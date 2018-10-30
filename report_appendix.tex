@@ -91,3 +91,29 @@
 				basicstyle=\small\ttfamily, 
 				commentstyle=\color{greenmat},
 				keywordstyle=\color{bluemat}]{appendix/find_calibration_parameters.m}
+				
+
+%------------------------------------------------------------------------
+% add steering class script as appendix
+%------------------------------------------------------------------------
+\setcounter{page}{1}
+\pagestyle{empty}
+\chapter{Steering controller}
+\label{appendix:steering_script}
+\cleardoublepage
+\pagestyle{empty}
+% cut header from pdf
+\includepdf[pages=5, trim=0 0 0 5cm, clip, pagecommand=\section{Steering Controller - documentation}\label{appendix:steering_doc}]{appendix/SteeringControllerTester}
+\includepdf[pages=6]{appendix/SteeringControllerTester}
+\cleardoublepage
+% add complete python code
+%------------------------------------------------------------------------
+% add calibration script as appendix
+%------------------------------------------------------------------------
+\setcounter{page}{1}
+\pagestyle{plain}
+\section{Steering Controller - script}
+\label{appendix:steering_code}
+\lstset{language=Python}
+\lstinputlisting[language=python, 
+frame=None, keywordstyle=\color{orange}, commentstyle=\color{greenmat}, basicstyle=\fontsize{7}{8}\ttfamily]{appendix/steering_controller.py}

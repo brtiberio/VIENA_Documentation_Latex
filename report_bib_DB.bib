@@ -366,6 +366,22 @@
 %---------------------------------------------------------------------------
 % Papers
 %---------------------------------------------------------------------------
+@article{Li2007,
+	abstract = {– Jerk limitation for a motion stage is im-portant to suppress transient vibration and to reduce the settling time. This paper presents a novel motion control method which aims to reduce jerk and tran-sient vibration for linear motion stages. In this ap-proach, the acceleration profile is designed to obtain a smoother movement without any abrupt corner. The velocity and the displacement profiles are calculated by integration. To implement the proposed motion profile on a DSP-based motion controller, a table look-up and linear interpolation method is used to relieve the calculation burden to the DSP controller in real-time. A voice coil motor driving motion stage with a fixed-point DSP controller is used as the test-bed, where a point-to-point linear motion task is de-signed and implemented to test the proposed motion profile. Experimental results have shown that by using the new profile, the motion induced vibration on the stage frame can be greatly reduced. 1 BACKGROUND High-performance motion control is widely needed in modern electronics manufacturing industry. Due to the global competency, there is an increasing demand for high-precision and high-speed automatic assembly equipment. An important issue for such equipment is the re-sidual vibration caused by the inappropriate accelera-tion or deceleration motion, which results in de-creased accuracy and increased settling time to the positioning table. To solve such problems, the new-generation mo-tion controller must have the capability to plan tra-jectory and generate motion profile in such a way that the accelerating and decelerating phases become much smoother to reduce inertia force and residual vibration. A typical point-to-point motion profile can be divided into three phases: accelerating, constant speed, and decelerating. Traditional motion control schemes use a simple trapezoidal velocity profile. The machine is accelerated at a constant acceleration until it reaches a maximum velocity, then keeps this constant velocity for a specified time, and is decelerated to rest at a constant deceleration. One of the main problems with this trapezoidal velocity profile is the induced vibration. The sudden change of acceleration will result in a large jerk force to the structure of the motion stage, and the higher the acceleration, the higher the force to excite vibration. Hence it has the disadvantages of longer settling time and limited acceleration, thus lower speed and accu-racy. To improve the performance, s-curve velocity profiles have been used to reduce the jerk force and the tendency to excite structural vibration. In the s-curve motion profile, the velocity profile is modified to have an s-shape during the acceleration and decel-eration periods to reduce the residual vibrations caused in a mechanical system by a moving mass. It means that the trajectory ramps up to peak accelera-tion and ramps down to constant speed. Compared with the trapezoidal velocity profile, the resulting motion can be both faster and more precise. However, it is noted that the s-curve profile still exhibit a sudden change of jerk profile, and the finite jerk spreads out over a period of time [1]. In recent years, methods using input design or input shaping have been developed to reduce the unwanted oscillations caused by poorly damped poles of the system, by specific design of the motion tra-jectory to minimise energy in the input signal at the frequencies corresponding to the poles [2-5]. Meckl et al [2] proposed an approach to optimise the selection of the ramp-up and ramp-down time for s-curve motion profiles to reduce the residual vibra-tion. This method was based on a frequency analysis that minimises the excitation energy of the input forcing function at the system natural frequency. However, one problem with these methods is that knowledge of the system natural frequencies are needed. Higher order trajectory planning approaches have also been used to smooth the trajectory and bound jerk. For example, Lambrechts et al [6] proposed design method using fourth-order feed-forward with fourth-order trajectories for single-axis motion control. Their results showed superior effectiveness of fourth-order feed-forward in comparison with lower-order feed-forward.},
+	author = {Li, H Z and Gong, Z M and Lin, Wei and Lippa, T},
+	doi = {10.13140/2.1.4211.2647},
+	file = {::},
+	isbn = {10.13140/2.1.4},
+	keywords = {jerk,motion control,vibration control},
+	number = {1},
+	pages = {32--37},
+	title = {{Motion profile planning for reduced jerk and vibration residuals}},
+	url = {https://www.researchgate.net/publication/267794207},
+	volume = {8},
+	year = {2007},
+	journal = {SIMTech technical reports}
+}
+
 @article{Caruso2000,
 	abstract = {A method for heading determination is described that will include$\backslash$nthe effects of pitch and roll as well as the magnetic properties of the$\backslash$nvehicle. Using solid-state magnetic sensors and a tilt sensor, a low$\backslash$ncost compass system can be realized. Commercial airlines today use$\backslash$nattitude and heading reference systems that cost tens of thousands of$\backslash$ndollars. For general aviation, or small private aircraft, this is too$\backslash$ncostly for most pilot's budget. The compass system described here$\backslash$nprovides heading, pitch and roll outputs accurate to one degree, or$\backslash$nbetter. The shortfall of this low-cost approach is that the compass$\backslash$noutputs are affected by acceleration and turns. A solution to this$\backslash$nproblem is also presented},
 	author = {Caruso, M.J.},
@@ -447,6 +463,18 @@
 	url = {https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-696.pdf},
 	year = {2007}
 }
+
+@manual{fst06,
+	title        = {Electrical System Form FSI 2015, Projecto FST NOVABASE},
+	author       = {Daniel Pinho},
+	organization = {FST Lisboa},
+	address      = {},
+	edition      = {},
+	month        = {},
+	year         = {},
+	note         = {}
+}
+
 %---------------------------------------------------------------------------
 % Webpages or others
 %---------------------------------------------------------------------------

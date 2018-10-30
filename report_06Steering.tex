@@ -102,7 +102,9 @@ Maxon EPOS 70/10 accepts quadrature sensors to give feedback of position. The us
 \end{table}
 
 The sensor support is mainly 3D printed in ABS filament. It is composed of the following parts presented in table \ref{tab:sensor_support_parts}.
-A dimensional sketch of the sensor and bearing used was also designed just for auxiliary purposes and to provide assembly instructions. The drawings with respective dimensions are added in appendix \ref{appendix:sensor_drawings}. The parts were designed in Autodesk Fusion 360 and are available under the Github repository
+A dimensional sketch of the sensor and bearing used was also designed just for auxiliary purposes and to provide assembly instructions. The drawings with respective dimensions are added in appendix \ref{appendix:sensor_drawings}. The parts were designed in Autodesk Fusion 360 and are available under the Github repository. An visual assembly guide is present \href{https://youtu.be/ljlZEBviRYQ}{here} to enlighten the user. The 3D model and real model assembled in the car are present in figure \ref{fig:support_sensor_3D} and \ref{fig:support_sensor_real}
+
+The designed files can be download from \href{http://a360.co/2D3xN33}{here}
 
 \begin{table}[!hb]
     \centering
@@ -120,13 +122,25 @@ A dimensional sketch of the sensor and bearing used was also designed just for a
 \label{tab:sensor_support_parts}
 \end{table}
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/support_3D}
+	\caption{Support sensor 3D in design software}
+	\label{fig:support_sensor_3D}
+\end{figure}
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{figures/support_real}
+	\caption{Support sensor assembled}
+	\label{fig:support_sensor_real}
+\end{figure}
 
 \section{Calibration process}
 Here is assumed the vehicle follows a model of Ackermann steering model typical valid for low speed which result in the simplified approximation of the single line model or as in general described in literature, as bicycle model\cite{Snider2009} \cite{Navigation_System_Design}. A simplified representation of the model is present in figure \ref{fig:ackermann_steering}. This model is normally used in control applications and expected to be used in future high level control. As it is necessary to determine the angle of wheel with respect to body frame YY axis (recall subsection \ref{subsection:body_frame}), the first calibration process required is to determine the function relating steering wheel position and angle of fictional wheel. A set up was made fixing the car and placing a white duck tape in front of it, perpendicular as physically possible and apart by 1.47 meters in front of the car. The duck tape will serve as a ruler. In each wheel is attached a laser level, pointing to front duck tape. Several measurements are take for different steering position values and using trigonometric relations, the angles of each wheel is estimated. 
 
 The other calibration process is taken each time a power up is made. It consists in performing a full rotation of the steering wheel to each extreme points. During this movement, the program is always reading sensor position and updating the maximum and minimum value read. After these quadrature counter values are found, user is requested to end calibration and the offset are calculated and stored along with maximum and minimum position. These values will only change in case of shut down performed on steering controller device.
 
-\begin{figure}[]
+\begin{figure}[!h]
 	\centering
 	\subcaptionbox{Four wheel representation}{\includegraphics[width=0.7\linewidth]{figures/Ackermann_steering.png}}
 	\hfill
@@ -263,9 +277,13 @@ The developed interface library for \gls{EPOS} is present in the same Github rep
 \end{mdframed}
 Since the sensor support is 3D printed, care must be taken to avoid abrupt variations of the steering wheel or the sensor gear might brake. User must also be careful to not apply achieve or surpass the extreme positions because it may cause damage to either the structure of car or the motor it self.
 
-The \gls{EPOS} contains built-in function that disables the operation if difference between the demanded position and current position grows or is higher beyond the predefined maximum following error parameter. These situation can be caused by a badly conditioned reference, if the motor is blocked or if the motor is not able to keep up with the rate of variation requested. A careful reference trajectory generation must be provided by user to avoid damage. During the testing of vehicle in field and development, a series of functions have been developed that can serve as inspiration for future implementations. They are presented in appendix \ref{appendix:steering_auxiliar_class} in the form of a Python class. It may serve as future inspiration for high level design. It contains the following list of base functions:
+The \gls{EPOS} contains built-in function that disables the operation if difference between the demanded position and current position grows or is higher beyond the predefined maximum following error parameter. These situation can be caused by a badly conditioned reference, if the motor is blocked or if the motor is not able to keep up with the rate of variation requested. A careful reference trajectory generation must be provided by user to avoid damage. During the testing of vehicle in field and development, a series of functions have been developed that can serve as inspiration for future implementations. They are presented in appendix \ref{appendix:steering_script} in the form of a Python class. It may serve as future inspiration for high level design. It contains the following list of base functions:
 \begin{description}[align=left, labelwidth=10em, leftmargin=5em, style=nextline]
-    \item [getQcPosition] test
+    \item [getQcPosition] Converts angle of wheels to qc.
+    \item[getDeltaAngle] Converts qc of steering wheel to angle of wheel.
+    \item[saveToFile] Record qc positions into a csv file.
+    \item[readFromFile] Read qc positions from file and follow them
+    \item[moveToPosition] Project and plan a trajectory from current position to desired position restricted to low jerk, limited acceleration and speed. The function is an implementation of algorithm presented in \cite{Li2007} 
 \end{description}
 
  
