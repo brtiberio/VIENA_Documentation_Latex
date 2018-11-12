@@ -31,12 +31,12 @@ Although all the instructions are given based on Linux operating system, they sh
 \section{Guide Outline}
 \label{section:outline} 
 
-This documentation guide is organized in five main chapters, Code guidelines, server, main sensors, controllers, miscellaneous.
+This documentation guide is organized in five main chapters, Code guidelines, server, batteries and controllers which include steering controller and power train controller.
 In chapter code guidelines is described suggested and used assumption especially focused in code structuring and tools used in development.
 In the server is provided information about the used hardware, designed pieces, software configuration needed to get started and connections.
-In main sensors will be discussed the work done with the current available sensors. New sensor additions should be documented under this chapter.
-In controllers will be reported mainly hardware controllers and software necessary to connect, configure  or communicate with it.
-Miscellaneous contain other parts that do not fit particularly inside any of those chapters but are necessary or may help in the project.
+In controllers will be reported mainly hardware controllers and software necessary to connect, configure  or communicate with it. The used controllers are a Maxon \gls{EPOS} device to control the steering wheel and the Siemens CU-320P with companion frequency inverter for controlling the motor of the car.
+The battery chapter will focus mainly on the high voltage \gls{DC} pack, necessary as a supply for frequency inverter.
+
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -53,7 +53,6 @@ During the fellowship BL43/2018, it was made the main contributions:
 	\item Development and design of \acrshort{PCB} for future CAN communication to replace the protoboard for main computer
 	\item Identification of the function that relates the steering wheel position with angle of the front wheel in a bicycle model of the car.
 	\item Mounting of available sensors (two  \acrshort{GNSS} unities and one \acrshort{IMU} \acrshort{9DOF})
-	\item Calibration of the inertial sensor.
 	\item Updated code related with \acrshort{MARG} sensor.
 	\item Updated code related with \acrshort{GNSS} unities.
 \end{enumerate}
@@ -61,19 +60,21 @@ During the fellowship BL43/2018, it was made the main contributions:
 Although not initially planned, but because the change of hardware and/or adversities found during the fellowship, following additional work was also contributed:
 \begin{enumerate}
 	\tightlist
-	\item Study of interconnection of the main battery pack
-	\item Study of software used for management of main battery pack
-	\item Study of hardware necessary for management of main battery pack
+	\item Study of connections required for the main battery pack.
+	\item Study of software used for management of main battery pack.
+	\item Study of hardware necessary for management of main battery pack.
 	\item Study and initial software development  for inverter received from \acrshort{FST}
 	\item Creation of an headless structure and an AP station based on \gls{Rpi} to communicate with vehicle
 	\item Initial development of an \acrshort{MQTT} based design to control the vehicle or check its status. 
 	\item Development of library to interact with Schneider Altivar 71 (abandoned due to change of inverter)
-	
+	\item Developement of library to interact with Siemens CU320-2DP and respective motor modules
 \end{enumerate}
 
 Main code contributions are available under Github repository in \url{https://github.com/brtiberio/VIENA} and will be kept up to date as soon as possible.
 The developed 3D pieces are also present in that repository and the companion drawings are shown in this guide also.
 The developed PCB schematics and board layouts are also presented in this guide.
+
+From initial proposed planned was not been made the calibration of \gls{MARG} sensors   neither the respective fusion filter with \gls{GNSS} sensor because is waiting for approval the acquisition of more recent sensors, which are expected to arrive in the end of year. However, for future reference, the current sensors are already installed and is also included a small description of how the calibration would be done in chapter \ref{chapter:Sensors}, if necessary. The code to interact with both sensors are also available in appendix as well as online \href{https://github.com/brtiberio/logger_AHRS}{here}.
 
 
 

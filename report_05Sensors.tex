@@ -866,53 +866,53 @@ hypothetical ellipse. Resuming, all sequential steps in one equation results in
 
 Comparing the structure of \eqref{eq:mag_cal_resume} with \eqref{eq:mag_model2} this implies that $C^{-1}$ is equal to $R_{cal}\,S\,R^T_{cal}$. 
 
-The results of calibration are presented for one of the devices in figure
-\ref{fig:mag_cal_din0} and the obtained are expressed in the table
-\ref{tab:mag_cal_results}. The trajectory used is not important as long as it is
-able perform one or more rotation of the vehicle in the horizontal plan. In
-figure \ref{subcap:mag_cal_comparison} is shown the results before and after
-calibration for the estimation of Euler $\psi$ angle. It is also present the
-estimation of the same angle using the the one of the gps unities as a reference
-for the comparison.
-
-\begin{figure}[!htp]
-	\centering
-	\subcaptionbox{Trajectory used for calibration.\label{subcap:mag_cal_din0_gps}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_steps_din0_gps.pdf}}
-	\hfill
-	\subcaptionbox{Magnetometer calibration \label{subcap:mag_cal_din0}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_steps_din0.pdf}}
-	\hfill
-	\subcaptionbox{$\psi$ angle estimation before and after calibration of magnetometers\label{subcap:mag_cal_comparison}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_compare.pdf}}
-	\caption{Magnetometer calibration steps applied to real data}
-	\label{fig:mag_cal_din0}
-\end{figure}
-
-
-\begin{table}[!hbt]
-	\centering
-	\begin{tabular}{ccc}
-		\toprule
-		{} & \textbf{Razor 1} \\
-		\midrule
-		${}^bh_{offset}\quad[nT]$ &[-2.5828\, -2.1703]\textsuperscript{T}x10\textsuperscript{4} \\
-		\addlinespace[5pt]
-		$\alpha\quad [deg]$ & 107.5238 \\
-		\addlinespace[5pt]
-		$\frac{semi-minor}{semi-major}$ & 0.9567\\
-		\addlinespace[5pt]
-		$R_{cal}$ & $\begin{bmatrix}
-		-0.3011 & -0.9536 & 0 \\
-		+0.9536 & -0.3011 & 0 \\
-		0		 &  0	   & 1 \end{bmatrix}$ \\
-		\addlinespace[5pt]
-		$C^{-1} $ &$\begin{bmatrix}
-		+0.9961& +0.0124 & 0\\
-		+0.0124& +0.9606 & 0\\
-		0     & 0      & 1
-		\end{bmatrix} $		 \\
-		\addlinespace[5pt]
-		\bottomrule
-	\end{tabular}
-	\caption{Magnetometers calibration results.}
-	\label{tab:mag_cal_results}
-\end{table}
+%The results of calibration are presented for one of the devices in figure
+%\ref{fig:mag_cal_din0} and the obtained are expressed in the table
+%\ref{tab:mag_cal_results}. The trajectory used is not important as long as it is
+%able perform one or more rotation of the vehicle in the horizontal plan. In
+%figure \ref{subcap:mag_cal_comparison} is shown the results before and after
+%calibration for the estimation of Euler $\psi$ angle. It is also present the
+%estimation of the same angle using the the one of the gps unities as a reference
+%for the comparison.
+%
+%\begin{figure}[!htp]
+%	\centering
+%	\subcaptionbox{Trajectory used for calibration.\label{subcap:mag_cal_din0_gps}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_steps_din0_gps.pdf}}
+%	\hfill
+%	\subcaptionbox{Magnetometer calibration \label{subcap:mag_cal_din0}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_steps_din0.pdf}}
+%	\hfill
+%	\subcaptionbox{$\psi$ angle estimation before and after calibration of magnetometers\label{subcap:mag_cal_comparison}}{\includegraphics[width=0.32\linewidth]{Figures/mag_calibration_compare.pdf}}
+%	\caption{Magnetometer calibration steps applied to real data}
+%	\label{fig:mag_cal_din0}
+%\end{figure}
+%
+%
+%\begin{table}[!hbt]
+%	\centering
+%	\begin{tabular}{ccc}
+%		\toprule
+%		{} & \textbf{Razor 1} \\
+%		\midrule
+%		${}^bh_{offset}\quad[nT]$ &[-2.5828\, -2.1703]\textsuperscript{T}x10\textsuperscript{4} \\
+%		\addlinespace[5pt]
+%		$\alpha\quad [deg]$ & 107.5238 \\
+%		\addlinespace[5pt]
+%		$\frac{semi-minor}{semi-major}$ & 0.9567\\
+%		\addlinespace[5pt]
+%		$R_{cal}$ & $\begin{bmatrix}
+%		-0.3011 & -0.9536 & 0 \\
+%		+0.9536 & -0.3011 & 0 \\
+%		0		 &  0	   & 1 \end{bmatrix}$ \\
+%		\addlinespace[5pt]
+%		$C^{-1} $ &$\begin{bmatrix}
+%		+0.9961& +0.0124 & 0\\
+%		+0.0124& +0.9606 & 0\\
+%		0     & 0      & 1
+%		\end{bmatrix} $		 \\
+%		\addlinespace[5pt]
+%		\bottomrule
+%	\end{tabular}
+%	\caption{Magnetometers calibration results.}
+%	\label{tab:mag_cal_results}
+%\end{table}
 

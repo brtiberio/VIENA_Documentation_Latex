@@ -67,7 +67,7 @@
 % ----------------------------------------------------------------------
 %  Set the document class
 % ----------------------------------------------------------------------
-\documentclass[10pt,a4paper]{report}
+\documentclass[10pt,a4paper,twoside]{report}
 
 % ----------------------------------------------------------------------
 % Define external packages, language, margins, fonts and new commands
@@ -82,7 +82,8 @@
 % \glsaddall create labels for all even if not used inside text
 % ----------------------------------------------------------------------
 \input{report_glossaries.tex}
-\glsaddall
+% \glsaddall
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Begin Document                                                   %
@@ -99,7 +100,7 @@
 %  Cover page
 % ----------------------------------------------------------------------
 \input{report_FrontCover} % file "Thesis_FrontCover.tex"
-\clearpage
+\cleardoublepage
 
 %% ----------------------------------------------------------------------
 %% Dedication page (optional)
@@ -111,7 +112,7 @@
 %  Acknowledgments (optional)
 % ----------------------------------------------------------------------
 \input{report_Acknowledgements} % file "Thesis_Acknowledgements.tex"
-\clearpage
+\cleardoublepage
 
 % ----------------------------------------------------------------------
 %  Abstract (both in English and Portuguese)
@@ -129,7 +130,7 @@
 % Table of contents
 %
 \tableofcontents
-\clearpage
+\cleardoublepage
 
 % List of tables
 %
@@ -138,7 +139,7 @@
 \addcontentsline{toc}{section}{\listtablename}
 % Generate list
 \listoftables
-\clearpage
+\cleardoublepage
 
 % List of figures
 %
@@ -147,7 +148,7 @@
 \addcontentsline{toc}{section}{\listfigurename}
 % Generate list
 \listoffigures
-\clearpage
+\cleardoublepage
 
 % Nomenclature
 %
@@ -157,7 +158,7 @@
 \glsfindwidesttoplevelname[nomencl]
 \setglossarystyle{alttree}
 \printglossary[type=nomencl]
-\clearpage
+\cleardoublepage
 
 % List of Acronyms
 %
@@ -168,7 +169,7 @@
 \glsfindwidesttoplevelname[acronym]
 \setglossarystyle{alttree}
 \printglossary[type=\acronymtype]
-\clearpage
+\cleardoublepage
 %
 % Set arabic numbering (1,2,...) after preface
 %
@@ -180,25 +181,25 @@
 % ----------------------------------------------------------------------
 
 \input{report_01Introduction} 
-\clearpage
+\cleardoublepage
 
 \input{report_02CodeGuides}
-\clearpage
+\cleardoublepage
 
 \input{report_03Server} 
-\clearpage
+\cleardoublepage
 
 \input{report_04Batteries}
-\clearpage
+\cleardoublepage
 
 \input{report_05Sensors}
-\clearpage
+\cleardoublepage
 
 \input{report_06Steering}
-\clearpage
+\cleardoublepage
 
 \input{report_07Power_Train_controller}
-\clearpage
+\cleardoublepage
 
 %\input{report_0XGPS}
 %\clearpage

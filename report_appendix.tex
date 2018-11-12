@@ -76,9 +76,11 @@
 \setlength{\hoffset}{\originalHOffset}
 \chapter{Development CAN board schematics}
 \label{appendix:can_schematics}
+\vfill
 \pagebreak
-
 \includepdf[scale=0.9, landscape=true]{appendix/Viena_Rpi_CAN_interface.pdf}
+\cleardoublepage
+
 %------------------------------------------------------------------------
 % add calibration script as appendix
 %------------------------------------------------------------------------
@@ -92,7 +94,7 @@
 				commentstyle=\color{greenmat},
 				keywordstyle=\color{bluemat}]{appendix/find_calibration_parameters.m}
 				
-
+\cleardoublepage
 %------------------------------------------------------------------------
 % add steering class script as appendix
 %------------------------------------------------------------------------
@@ -117,3 +119,21 @@
 \lstset{language=Python}
 \lstinputlisting[language=python, 
 frame=None, keywordstyle=\color{orange}, commentstyle=\color{greenmat}, basicstyle=\fontsize{7}{8}\ttfamily]{appendix/steering_controller.py}
+\cleardoublepage
+
+%------------------------------------------------------------------------
+% add sinamics library doc as appendix
+%------------------------------------------------------------------------
+\setcounter{page}{1}
+\pagestyle{empty}
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+\chapter{Sinamics CANopen Library Documentation}
+\cleardoublepage
+\setlength{\voffset}{0cm}
+\setlength{\hoffset}{0cm}
+\label{appendix:sinamics}
+\includepdf[pages=5-11]{appendix/sinamics-canopen}
+\setlength{\voffset}{\originalVOffset}
+\setlength{\hoffset}{\originalHOffset}
+\cleardoublepage
