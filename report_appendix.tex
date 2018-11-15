@@ -42,7 +42,7 @@
 \setlength{\hoffset}{\originalHOffset}
 \chapter{Sensor support Drawings}
 \label{appendix:sensor_drawings}
-\pagebreak
+\cleardoublepage
 
 %\includepdf[scale=0.75, angle=-90, pagecommand=\section{Sensor gear 32 teeth} \label{draw:sensor-gear}, offset=0 -0.5cm, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-gear}
 \includepdf[scale=0.8, landscape=true, pagecommand=\section{Sensor gear 32 teeth} \label{draw:sensor-gear}, trim=5mm 5mm 5mm 5mm,clip]{Drawings/sensor-gear}
@@ -76,8 +76,7 @@
 \setlength{\hoffset}{\originalHOffset}
 \chapter{Development CAN board schematics}
 \label{appendix:can_schematics}
-\vfill
-\pagebreak
+\cleardoublepage
 \includepdf[scale=0.9, landscape=true]{appendix/Viena_Rpi_CAN_interface.pdf}
 \cleardoublepage
 
@@ -88,6 +87,7 @@
 \pagestyle{plain}
 \chapter{Calibration script}
 \label{appendix:calibration_script}
+\cleardoublepage
 \lstinputlisting[language=Octave, 
 				frame=None, 
 				basicstyle=\small\ttfamily, 
@@ -112,7 +112,6 @@
 %------------------------------------------------------------------------
 % add calibration script as appendix
 %------------------------------------------------------------------------
-\setcounter{page}{1}
 \pagestyle{plain}
 \section{Steering Controller - script}
 \label{appendix:steering_code}

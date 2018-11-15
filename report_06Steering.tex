@@ -249,7 +249,7 @@ Comparing figure \ref{fig:ackermann_steering} with figure \ref{fig:calibration_s
 
 Taking several measurements for different values of quadrature counters, is calculated the respective values of $\alpha$ and $\beta$. After, for each of those pairs is calculated the estimated values of $\delta \gamma$ and $\gamma$. Using least squares approach (\gls{polyfit} from Matlab\textregistered) is estimated the best fitting for each variable with respect to \gls{qc}, assuming the discussed points above. The result of fitting is shown in figure \ref{fig:calibration_results}. It shows the evaluated values of fitted functions in the range of -40000 to 40000 \gls{qc}. Note the fact that zero value is slightly apart to the right. This is a normal consequence of small misalignment (approximate 1\degree) of wheels when the \gls{EPOS} device is initialized, which is assumed the zero of it. This reflects the requirement to perform the full rotation to each side after device power up, to find the offset at origin.
 
-The estimated ration between steering wheel \gls{qc} and the fictional wheel of bicycle model is then $-7.5014E-04$, translating in the equation \eqref{eq:qc_to_angle}, where the offset is determined at each power up calibration step. 
+The estimated ratio between steering wheel \gls{qc} and the fictional wheel of bicycle model is then $-7.5014E-04$, translating in the equation \eqref{eq:qc_to_angle}, where the offset is determined at each power up calibration step. 
 
 The Matlab\texttrademark used for calibration is present in appendix \ref{appendix:calibration_script}
 

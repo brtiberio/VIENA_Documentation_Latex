@@ -2,10 +2,10 @@
 \begin{theglossary}\glossaryheader
 \glsgroupheading{I}\relax \glsresetentrylist %
 \glossentry{intrinsic}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{29}}}\glsgroupskip
+		\setentrycounter[]{page}\glsnumberformat{31}}}\glsgroupskip
 \glsgroupheading{P}\relax \glsresetentrylist %
 \glossentry{polyfit}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{43}}}%
+		\setentrycounter[]{page}\glsnumberformat{45}}}%
 \glossentry{pure quaternion}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{31}}}%
+		\setentrycounter[]{page}\glsnumberformat{33}}}%
 \end{theglossary}\glossarypostamble

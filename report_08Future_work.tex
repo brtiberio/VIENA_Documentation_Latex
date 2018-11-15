@@ -1,0 +1,25 @@
+\chapter{Future work}
+
+Currently is being developed many features for future use or are intended to being used. Here are presented a small list of them:
+\begin{itemize}
+    \tightlist
+    \item Finish the VIENA interface webpage
+    \item Implement security layers for MQTT (SSL, TLS).
+    \item Add login for MQTT to avoid possible intrusions.
+    \item Acquire the designed \gls{PCB} board to replace the CAN protoboard.
+    \item Design python module to control both power train and steering wheel  using the common CAN bus.
+    \item Design and implement \gls{BMS} for pack of auxiliary batteries.
+    \item Design and implement a structure for fixing auxiliary batteries with easy access to connect a charger.
+    \item Redesign code for new \gls{AHRS} sensors.
+    \item Implement Location fusion based in \gls{GNSS}/\gls{AHRS} filter in python.
+    \item Implement high level steering controller based on information received from Location filter information (with \gls{MQTT} access for now).
+    \item Study the possibility of use of ROS2 in \gls{Rpi} for adding flexibility and abstraction.
+    \item Add flexibility to safe shutdown \gls{Rpi} using a pushbutton or switch to avoid damaging microSD cards.
+    \item Study the possibility to change root (or full boot) partition to USB or mSSD solutions.
+    \item Create robust fixture structure to accommodate all boards and sensors currently used.
+    \item Create 3D print enclosures for all circuits that can be easy installed/removed.
+    \item Study the circuit required to auto-shutdown if pre-charge have any failure (possibly using high voltage LEM transducers)
+    \item Create a full online documentation possibly based on Github project wiki that adds flexibility.
+    \item Create a Github pages associated with project.
+    \item Create a modular structure to fix components on the back of the vehicle, possibly based on open beam or Bosch Rexroth V slots.
+\end{itemize}
